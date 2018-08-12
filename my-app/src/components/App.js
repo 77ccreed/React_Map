@@ -1,8 +1,8 @@
 import React, {
   Component
 } from 'react'
-import Map from './components/Map'
-import './css/App.css'
+import Map from './Map'
+import './../css/App.css'
 /* global google */
 
 export default class App extends Component {
@@ -27,17 +27,15 @@ export default class App extends Component {
   }
 
   render() {
-    return ( <
-      div className = "App">
-      <
-      Map />
-      <
-      /div>
-    );
+    return (
+      <Map />
+    )
   }
 }
 
-
+// https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
+// Script loading function which is called after the React app has been initialized
+// and rendered into the DOM.
 function loadMapJS(src) {
   let ref = window.document.getElementsByTagName("script")[0];
   let script = window.document.createElement("script");
