@@ -45,8 +45,7 @@ export default class App extends Component {
     // Open an info window
     marker.addListener('click', function () {
       infowindow.open(map, marker);
-    });
-    
+    });    
   }
 
   render() {
