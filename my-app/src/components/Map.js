@@ -2,9 +2,12 @@ import React from 'react'
 
 export default () => {
   return (
-    <div id="map"></div>
+    <div id="map" role="application"></div>
   )
 }
+
+
+
 /*
 import React, { Component } from 'react';
 
