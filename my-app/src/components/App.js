@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import Map from './Map'
 import './../css/App.css'
+// import { locations } from './../data/locations'
 /* global google */
 
 export default class App extends Component {
@@ -17,13 +18,35 @@ export default class App extends Component {
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
   // Initialize Google Map
   initMap = () => {
-    new google.maps.Map(document.getElementById('map'), {
-      center: {
-        lat: 57.78145679999999,
-        lng: 26.0550403
-      },
+    var myLatLng = {
+      lat: 57.78145679999999,
+      lng: 26.0550403 };
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
       zoom: 14
     })
+
+    // https://developers.google.com/maps/documentation/javascript/markers#add
+    // Add Google Maps marker
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+    });
+
+    // https://developers.google.com/maps/documentation/javascript/infowindows#open
+    // Add an info window
+    var infowindow = new google.maps.InfoWindow({
+      content: "contentString"
+    });
+
+    // https://developers.google.com/maps/documentation/javascript/infowindows#open
+    // Open an info window
+    marker.addListener('click', function () {
+      infowindow.open(map, marker);
+    });
+    
   }
 
   render() {
