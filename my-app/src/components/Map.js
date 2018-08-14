@@ -1,35 +1,8 @@
-/*import React from 'react'
-
-export default () => {
-  return (
-    <div id="map" role="application"></div>
-  )
-}*/
-
 import React, { Component } from 'react';
 import { locations } from './../data/locations'
 /* global google */
 
 class Map extends Component {
-
- /* // Initialize Google Map when DOM was loaded and call script loading function.
-  componentDidMount() {
-    window.initMap = this.initMap;
-
-    loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap')
-  }
-
-// https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
-// Initialize Google Map
-  initMap = () => {
-    const mapContainer = document.getElementById('map');
-    const map = new window.google.maps.Map(mapContainer, {
-      center: { lat: 57.78145679999999, lng: 26.0550403 },
-      zoom: 14
-    })
-    this.props.setMap(map);
-  }*/
-
 
   // Initialize Google Map when DOM was loaded and call script loading function.
   componentDidMount() {
@@ -54,14 +27,14 @@ class Map extends Component {
 
     // Loop over locations and create markers and info window
     locations.map(location => {
-       // https://developers.google.com/maps/documentation/javascript/markers#add
-       // Add Google Maps marker
-        let marker = new google.maps.Marker({
+      // https://developers.google.com/maps/documentation/javascript/markers#add
+      // Add Google Maps marker
+      let marker = new google.maps.Marker({
         map: map,
         position: location.coords,
         title: location.name,
       })
-      console.log(marker) 
+      console.log()
 
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
       // Add an info window
@@ -75,8 +48,8 @@ class Map extends Component {
         infowindow.open(map, marker);
       });
     })
- }
-   
+  }
+
   render() {
     return (
       <div id="map"></div>
