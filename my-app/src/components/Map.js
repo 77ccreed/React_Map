@@ -39,7 +39,7 @@ class Map extends Component {
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
       // Add an info window
       let infowindow = new google.maps.InfoWindow({
-        content: "contentString"
+        content: location.name
       });
 
       // https://developers.google.com/maps/documentation/javascript/infowindows#open

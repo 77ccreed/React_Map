@@ -3,12 +3,15 @@ import React, {
 } from 'react'
 import Map from './Map'
 import './../css/App.css'
+import Example from './NavbarToggler'
 
 export default class App extends Component {
 
   render() {
-    return ( <
-      Map / >
+    return (<div>
+    <Example />
+    <Map / >
+      </div>
     )
   }
 }
