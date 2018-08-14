@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { locations } from './../data/locations'
+import { locations } from '../data/locations'
 /* global google */
 
 class Map extends Component {
@@ -46,6 +46,7 @@ class Map extends Component {
       // Open an info window
       marker.addListener('click', function () {
         infowindow.open(map, marker);
+
       });
     })
   }

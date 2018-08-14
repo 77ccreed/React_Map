@@ -1,25 +1,22 @@
 import React from 'react';
 import {
-  InputGroup,
-  InputGroupAddon,
+  InputGroup, 
   InputGroupButtonDropdown,
-  InputGroupDropdown,
   Input,
-  Button,
-  Dropdown,
   DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  DropdownMenu, 
+  ListGroup, 
+  ListGroupItem 
 } from 'reactstrap';
 
-export default class Example extends React.Component {
+export default class Navlist extends React.Component {
   constructor(props) {
     super(props);
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggleSplit = this.toggleSplit.bind(this);
     this.state = {
-      dropdownOpen: false,
+      dropdownOpen: true,
       splitButtonOpen: false
     };
   }
@@ -42,13 +39,19 @@ export default class Example extends React.Component {
       <div>
     
         <InputGroup>
-          <Input />
+          <Input placeholder="Add location name" id="input"/>
           <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
             <DropdownToggle caret>
-              Button Dropdown
+              Locations
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem header>Header</DropdownItem>
+              <ListGroup>
+                <ListGroupItem tag="button" action>Conspirator Bar</ListGroupItem>
+                <ListGroupItem tag="button" action>Sinel</ListGroupItem>
+                <ListGroupItem tag="button" action>Restoran Metsis</ListGroupItem>
+                <ListGroupItem tag="button" action>Lilli restoran</ListGroupItem>
+                <ListGroupItem tag="button" action>Vabaduse Kohvik</ListGroupItem>
+              </ListGroup>
             
             </DropdownMenu>
           </InputGroupButtonDropdown>
