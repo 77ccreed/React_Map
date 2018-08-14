@@ -1,38 +1,60 @@
 import React from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupDropdown,
+  Input,
+  Button,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
 
 export default class Example extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.toggleSplit = this.toggleSplit.bind(this);
     this.state = {
-      collapsed: true
+      dropdownOpen: false,
+      splitButtonOpen: false
     };
   }
 
-  toggleNavbar() {
+  toggleDropDown() {
     this.setState({
-      collapsed: !this.state.collapsed
+      dropdownOpen: !this.state.dropdownOpen
     });
   }
+
+  toggleSplit() {
+    this.setState({
+      splitButtonOpen: !this.state.splitButtonOpen
+    });
+  }
+
+
   render() {
     return (
       <div>
-        <Navbar color="faded" light>
-          <NavbarBrand href="/" className="mr-auto">reactstrap</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse isOpen={!this.state.collapsed} navbar>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
+    
+        <InputGroup>
+          <Input />
+          <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+            <DropdownToggle caret>
+              Button Dropdown
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem header>Header</DropdownItem>
+            
+            </DropdownMenu>
+          </InputGroupButtonDropdown>
+        </InputGroup>
+        
+        
       </div>
     );
   }
