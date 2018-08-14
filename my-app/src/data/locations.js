@@ -1,4 +1,4 @@
-export const locations = [
+ export const locations = [
   {
     name: 'Conspirator Bar',
     coords: { lat: 57.77545740389894, lng: 26.040790990543993 }
