@@ -14,10 +14,10 @@ export default class Navlist extends React.Component {
     super(props);
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.toggleSplit = this.toggleSplit.bind(this);
+
     this.state = {
-      dropdownOpen: true,
-      splitButtonOpen: false
+    dropdownOpen: true,
+  
     };
   }
 
@@ -27,17 +27,9 @@ export default class Navlist extends React.Component {
     });
   }
 
-  toggleSplit() {
-    this.setState({
-      splitButtonOpen: !this.state.splitButtonOpen
-    });
-  }
-
-
   render() {
     return (
       <div>
-    
         <InputGroup>
           <Input placeholder="Add location name" id="input"/>
           <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
@@ -46,18 +38,15 @@ export default class Navlist extends React.Component {
             </DropdownToggle>
             <DropdownMenu>
               <ListGroup>
-                <ListGroupItem tag="button" action>Conspirator Bar</ListGroupItem>
+                <ListGroupItem tag="button">Conspirator Bar</ListGroupItem>
                 <ListGroupItem tag="button" action>Sinel</ListGroupItem>
                 <ListGroupItem tag="button" action>Restoran Metsis</ListGroupItem>
                 <ListGroupItem tag="button" action>Lilli restoran</ListGroupItem>
                 <ListGroupItem tag="button" action>Vabaduse Kohvik</ListGroupItem>
-              </ListGroup>
-            
+              </ListGroup>           
             </DropdownMenu>
           </InputGroupButtonDropdown>
-        </InputGroup>
-        
-        
+        </InputGroup>       
       </div>
     );
   }

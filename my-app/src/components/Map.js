@@ -1,8 +1,18 @@
-import React, { Component } from 'react';
-import { locations } from '../data/locations'
-/* global google */
+import React from 'react'
 
-class Map extends Component {
+export default () => {
+  return (
+    <div id="map" role="application" tabIndex="-1"></div>
+  )
+}
+
+//import React, { Component } from 'react';
+//import { locations } from '../data/locations'
+
+
+
+
+/*class Map extends Component {
 
   // Initialize Google Map when DOM was loaded and call script loading function.
   componentDidMount() {
@@ -53,7 +63,8 @@ class Map extends Component {
 
   render() {
     return (
-      <div id="map"></div>
+      <div id="map">
+      </div>
     )
   }
 }
@@ -73,3 +84,4 @@ function loadMapJS(src) {
   };
   ref.parentNode.insertBefore(script, ref);
 }
+*/
