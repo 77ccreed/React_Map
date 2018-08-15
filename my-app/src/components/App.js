@@ -4,7 +4,12 @@ import React, {
 import Map from './Map'
 import './../css/App.css'
 import {
-  Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup,
+  Button, 
+  Modal, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter, 
+  InputGroup,
   InputGroupButtonDropdown,
   Input,
   DropdownToggle,
@@ -20,10 +25,12 @@ export default class App extends Component {
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.updateInput=this.updateInput.bind(this);
 
     this.state = {
       modal: false,
-      dropdownOpen: true
+      dropdownOpen: true,
+      input:"",
     };  
   }
 
@@ -37,6 +44,14 @@ export default class App extends Component {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
+  }
+
+ updateInput(event){
+   const value= event.target.value
+ 
+   this.setState(() => ({
+     input:value
+   }));
   }
 
   // Initialize Google Map when DOM was loaded and call script loading function.
@@ -75,16 +90,18 @@ export default class App extends Component {
       // Add an info window
       let infowindow = new google.maps.InfoWindow({
         content: location.name
+      
       });
 
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
       // Open an info window
       marker.addListener('click', function () {
         infowindow.open(map, marker);
-
       });
     })
   }
+
+ 
 
 
   render() {
@@ -92,7 +109,7 @@ export default class App extends Component {
       <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
         <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
         <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Lorem ipsum dolor
           </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
@@ -100,14 +117,19 @@ export default class App extends Component {
         </ModalFooter>
       </Modal>
       <InputGroup>
-        <Input placeholder="Add location name" id="input" />
+        <Input 
+        placeholder="Add location name" 
+        id="input"
+        value={this.state.input}
+        onChange={this.updateInput}
+        />
         <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
           <DropdownToggle caret>
             Locations
             </DropdownToggle>
           <DropdownMenu>
             <ListGroup>
-              <ListGroupItem tag="button">Conspirator Bar</ListGroupItem>
+              <ListGroupItem tag="button" action>Conspirator Bar</ListGroupItem>
               <ListGroupItem tag="button" action>Sinel</ListGroupItem>
               <ListGroupItem tag="button" action>Restoran Metsis</ListGroupItem>
               <ListGroupItem tag="button" action>Lilli restoran</ListGroupItem>
