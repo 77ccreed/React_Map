@@ -155,9 +155,8 @@ export default class App extends Component {
                       tag="button"
                       key={id}
                       id="list-items"
-                      //onClick={this.props.toggle.bind(this, modal)}
+                      //onClick={this.props.toggle.bind(this, location)}
                       value={this.state.input}
-                      tabIndex={this.props.isOpen ? -1 : 0}
                       action
                     >
                       {location.name}
