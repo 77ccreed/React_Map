@@ -23,14 +23,18 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
+    //bind this
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggle = this.toggle.bind(this);
     this.updateInput=this.updateInput.bind(this);
 
+    //set state
     this.state = {
       modal: false,
       dropdownOpen: true,
       input:"",
+      markers: [],
+      searchedLocations:[]
     };  
   }
 
@@ -47,18 +51,23 @@ export default class App extends Component {
   }
 
  updateInput(event){
-   const value= event.target.value
- 
+   const value= event.target.value 
    this.setState(() => ({
-     input:value
-   }));
+     input:value    
+   }));   
+   console.log(value);
+   console.log(locations);
+  }
+
+  handleInput(){
+    
   }
 
   // Initialize Google Map when DOM was loaded and call script loading function.
   componentDidMount() {
     window.initMap = this.initMap;
 
-    loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap')
+    loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap');
   }
 
 
@@ -75,22 +84,35 @@ export default class App extends Component {
       zoom: 14
     })
 
-    // Loop over locations and create markers and info window
+    // Loop over locations array and create markers and info window
     locations.map(location => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
-      // Add Google Maps marker
+      // Create a marker
       let marker = new google.maps.Marker({
-        map: map,
         position: location.coords,
         title: location.name,
-      })
-      console.log()
+      });
 
+      //if (marker.title===)
+      //console.log(event.target.value);
+      console.log(marker);
+      console.log(marker.title);
+     
+      // kui on input võrdle markeritega, muidu ava kõik markerid
+      /*if (input) {
+        
+      //  marker.setMap(map);
+      } else {
+        marker.setMap(map);
+      }*/
+     // To add the marker to the map, call setMap();
+     
+      marker.setMap(map);
+      
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
       // Add an info window
       let infowindow = new google.maps.InfoWindow({
-        content: location.name
-      
+        content: location.name      
       });
 
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
@@ -102,10 +124,9 @@ export default class App extends Component {
   }
 
  
-
-
   render() {
-    return (<main>
+    return (
+    <main>
       <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
         <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
         <ModalBody>
@@ -129,23 +150,35 @@ export default class App extends Component {
             </DropdownToggle>
           <DropdownMenu>
             <ListGroup>
-              <ListGroupItem tag="button" action>Conspirator Bar</ListGroupItem>
-              <ListGroupItem tag="button" action>Sinel</ListGroupItem>
-              <ListGroupItem tag="button" action>Restoran Metsis</ListGroupItem>
-              <ListGroupItem tag="button" action>Lilli restoran</ListGroupItem>
-              <ListGroupItem tag="button" action>Vabaduse Kohvik</ListGroupItem>
+                  {locations.map((location, id) => {
+                    return (<ListGroupItem 
+                      tag="button"
+                      key={id}
+                      id="list-items"
+                      //onClick={this.props.toggle.bind(this, modal)}
+                      value={this.state.input}
+                      tabIndex={this.props.isOpen ? -1 : 0}
+                      action
+                    >
+                      {location.name}
+                    </ListGroupItem>)
+                  })}
             </ListGroup>
           </DropdownMenu>
         </InputGroupButtonDropdown>
       </InputGroup>  
-    <Map />
-      </main>
+      <Map 
+          value={this.state.input}
+      />
+    </main>
     )
   }
 }
 
 
-
+// https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
+// Script loading function which is called after the React app has been initialized
+// and rendered into the DOM.
 function loadMapJS(src) {
   let ref = window.document.getElementsByTagName("script")[0];
   let script = window.document.createElement("script");
