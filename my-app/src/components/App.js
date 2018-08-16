@@ -121,6 +121,11 @@ export default class App extends Component {
         infowindow.open(map, marker);
       });
     })
+
+    //https://developers.google.com/maps/documentation/javascript/events#auth-errors
+    function gm_authFailure() {
+      alert("Sorry, Google Maps not working!");
+    };
   }
 
  
