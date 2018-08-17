@@ -104,7 +104,13 @@ export default class App extends Component {
 
      // To add the marker to the map, call setMap();   
       marker.setMap(map);
-      
+
+      // Open modal when click a marker
+      marker.addListener('click', _ => {
+        this.toggle(marker);
+      })
+
+      /*
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
       // Add an info window
       let infowindow = new google.maps.InfoWindow({
@@ -115,7 +121,8 @@ export default class App extends Component {
       // Open an info window
       marker.addListener('click', function () {
         infowindow.open(map, marker);
-      });  
+      }); 
+      */ 
     })
   }
 
