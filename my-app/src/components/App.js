@@ -158,7 +158,7 @@ export default class App extends Component {
                       tag="button"
                       key={id}
                       id="list-items"
-                      //onClick={this.props.toggle.bind(this, location)}
+                      onClick={this.toggle}
                       value={this.state.input}
                       action
                     >
