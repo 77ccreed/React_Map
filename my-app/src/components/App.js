@@ -44,7 +44,7 @@ export default class App extends Component {
     });
   }
 
-  toggleDropDown() {
+ toggleDropDown() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
@@ -63,9 +63,15 @@ export default class App extends Component {
     
   }
 
+  //https://developers.google.com/maps/documentation/javascript/events#auth-errors
+   gm_authFailure() {
+    window.alert("Sorry, Google Maps not working!");
+  }
+
   // Initialize Google Map when DOM was loaded and call script loading function.
   componentDidMount() {
     window.initMap = this.initMap;
+    window.gm_authFailure = this.gm_authFailure;
 
     loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap');
   }
@@ -93,20 +99,10 @@ export default class App extends Component {
         title: location.name,
       });
 
-      //if (marker.title===)
-      //console.log(event.target.value);
       console.log(marker);
       console.log(marker.title);
-     
-      // kui on input võrdle markeritega, muidu ava kõik markerid
-      /*if (input) {
-        
-      //  marker.setMap(map);
-      } else {
-        marker.setMap(map);
-      }*/
-     // To add the marker to the map, call setMap();
-     
+
+     // To add the marker to the map, call setMap();   
       marker.setMap(map);
       
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
@@ -119,13 +115,8 @@ export default class App extends Component {
       // Open an info window
       marker.addListener('click', function () {
         infowindow.open(map, marker);
-      });
+      });  
     })
-
-    //https://developers.google.com/maps/documentation/javascript/events#auth-errors
-    function gm_authFailure() {
-      alert("Sorry, Google Maps not working!");
-    };
   }
 
  
