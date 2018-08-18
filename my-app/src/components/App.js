@@ -64,7 +64,7 @@ export default class App extends Component {
   }
 
   // Filter input locations
-  searchLocations = (event) => {
+  /*searchLocations = (event) => {
 
     let searchedLocations = [];
 
@@ -88,7 +88,7 @@ export default class App extends Component {
       });
     }
     this.setState({ markers: searchedLocations })
-  }
+  }*/
 
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
    gm_authFailure() {
@@ -203,7 +203,6 @@ export default class App extends Component {
     )
   }
 }
-
 
 // https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
 // https://www.youtube.com/watch?v=W5LhLZqj76s&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=2
