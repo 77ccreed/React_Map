@@ -63,33 +63,6 @@ export default class App extends Component {
     
   }
 
-  // Filter input locations
-  /*searchLocations = (event) => {
-
-    let searchedLocations = [];
-
-    if (event.target.value === '' || searchedLocations.length === 0) {
-      this.state.searchedMarkers.forEach((marker) => {
-        if (marker.title.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0) {
-          marker.setVisible(true);
-          searchedLocations.push(marker);
-        } else {
-          marker.setVisible(false);
-        }
-      });
-    } else {
-      this.state.markers.forEach((marker) => {
-        if (marker.title.toLowerCase().indexOf(event.target.value) >= 0) {
-          marker.setVisible(true);
-          searchedLocations.push(marker);
-        } else {
-          marker.setVisible(false);
-        }
-      });
-    }
-    this.setState({ markers: searchedLocations })
-  }*/
-
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
    gm_authFailure() {
     window.alert("Sorry, Google Maps not working!");
