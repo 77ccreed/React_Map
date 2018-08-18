@@ -17,7 +17,7 @@ import {
   ListGroup,
   ListGroupItem } from 'reactstrap';
 import { locations } from '../data/locations'
-/* global google */
+
 
 export default class App extends Component {
   constructor(props) {
@@ -63,6 +63,33 @@ export default class App extends Component {
     
   }
 
+  // Filter input locations
+  searchLocations = (event) => {
+
+    let searchedLocations = [];
+
+    if (event.target.value === '' || searchedLocations.length === 0) {
+      this.state.searchedMarkers.forEach((marker) => {
+        if (marker.title.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0) {
+          marker.setVisible(true);
+          searchedLocations.push(marker);
+        } else {
+          marker.setVisible(false);
+        }
+      });
+    } else {
+      this.state.markers.forEach((marker) => {
+        if (marker.title.toLowerCase().indexOf(event.target.value) >= 0) {
+          marker.setVisible(true);
+          searchedLocations.push(marker);
+        } else {
+          marker.setVisible(false);
+        }
+      });
+    }
+    this.setState({ markers: searchedLocations })
+  }
+
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
    gm_authFailure() {
     window.alert("Sorry, Google Maps not working!");
@@ -85,7 +112,7 @@ export default class App extends Component {
       lng: 26.0550403
     };
 
-    let map = new google.maps.Map(document.getElementById('map'), {
+    let map = new window.google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 14
     })
@@ -94,7 +121,7 @@ export default class App extends Component {
     locations.map(location => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
-      let marker = new google.maps.Marker({
+      let marker = new window.google.maps.Marker({
         position: location.coords,
         title: location.name,
       });
@@ -179,13 +206,15 @@ export default class App extends Component {
 
 
 // https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
+// https://www.youtube.com/watch?v=W5LhLZqj76s&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=2
 // Script loading function which is called after the React app has been initialized
-// and rendered into the DOM.
+// and rendered into the DOM. This function created outside React Component
 function loadMapJS(src) {
   let ref = window.document.getElementsByTagName("script")[0];
   let script = window.document.createElement("script");
   script.src = src;
   script.async = true;
+  script.defer = true;
   script.onerror = function () {
     document.write('Google Maps can\'t be loaded');
   };
