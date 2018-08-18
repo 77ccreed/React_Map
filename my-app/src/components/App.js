@@ -34,7 +34,8 @@ export default class App extends Component {
       modal: false,
       dropdownOpen: true,
       input:"",
-      venues:[]
+      venues:[],
+      markers:[]
     };  
   }
 
@@ -79,6 +80,8 @@ export default class App extends Component {
   }
 
 
+  //https://www.youtube.com/watch?v=dAhMIF0fNpo&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=3
+  // Get Foursquare data
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?"
     const parameters = {
@@ -88,13 +91,14 @@ export default class App extends Component {
       near: "Valga",
       v: 20180817
     }
-
+    
+    // https://github.com/axios/axios
+    // Use Axios to fetch Foursquare data
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items
         })
-        console.log(response.data.response.groups[0].items);
       })
       .catch(error => {
         console.log("error" + error);
@@ -155,14 +159,32 @@ export default class App extends Component {
   render() {
     return (
     <main>
-      <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+      <Modal 
+      isOpen={this.state.modal} 
+      toggle={this.toggle} 
+      className={this.props.className}
+      >
+        <ModalHeader 
+        toggle={this.toggle}
+        >
+        Modal name
+        </ModalHeader>
         <ModalBody>
           Lorem ipsum dolor
           </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-          <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          <Button 
+          color="primary" 
+          onClick={this.toggle}
+          >
+          Do Something
+          </Button>{' '}
+          <Button 
+          color="secondary" 
+          onClick={this.toggle}
+          >
+          Cancel
+          </Button>
         </ModalFooter>
       </Modal>
       <InputGroup>
@@ -172,7 +194,11 @@ export default class App extends Component {
         value={this.state.input}
         onChange={this.updateInput}
         />
-        <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+        <InputGroupButtonDropdown 
+        addonType="append" 
+        isOpen={this.state.dropdownOpen} 
+        toggle={this.toggleDropDown
+        }>
           <DropdownToggle caret>
             Locations
             </DropdownToggle>
