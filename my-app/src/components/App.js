@@ -16,7 +16,8 @@ import {
   DropdownMenu,
   ListGroup,
   ListGroupItem } from 'reactstrap';
-import { locations } from '../data/locations'
+//import { locations } from '../data/locations'
+import axios from 'axios'
 
 
 export default class App extends Component {
@@ -33,8 +34,7 @@ export default class App extends Component {
       modal: false,
       dropdownOpen: true,
       input:"",
-      markers: [],
-      searchedLocations:[]
+      venues:[]
     };  
   }
 
@@ -56,12 +56,13 @@ export default class App extends Component {
      input:value    
    }));   
    console.log(value);
-   console.log(locations);
   }
 
   handleInput(){
     
   }
+
+
 
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
    gm_authFailure() {
@@ -70,10 +71,34 @@ export default class App extends Component {
 
   // Initialize Google Map when DOM was loaded and call script loading function.
   componentDidMount() {
-    window.initMap = this.initMap;
-    window.gm_authFailure = this.gm_authFailure;
+    this.getVenues()
+    window.initMap = this.initMap
+    window.gm_authFailure = this.gm_authFailure
 
     loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap');
+  }
+
+
+  getVenues = () => {
+    const endPoint = "https://api.foursquare.com/v2/venues/explore?"
+    const parameters = {
+      client_id: "WQBHQGSTMIMA3AF3KZLVAP1A4JUN1AFD4F1XZDBVR10SCUL3",
+      client_secret: "AAIPSPJ2TWI4BPNLMCCRP0ZXEOV25HKZLQL45BDSKJZGMD4Q",
+      query: "food",
+      near: "Valga",
+      v: 20180817
+    }
+
+    axios.get(endPoint + new URLSearchParams(parameters))
+      .then(response => {
+        this.setState({
+          venues: response.data.response.groups[0].items
+        })
+        console.log(response.data.response.groups[0].items);
+      })
+      .catch(error => {
+        console.log("error" + error);
+      })
   }
 
 
@@ -91,12 +116,12 @@ export default class App extends Component {
     })
 
     // Loop over locations array and create markers and info window
-    locations.map(location => {
+    this.state.venues.map(venue => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
       let marker = new window.google.maps.Marker({
-        position: location.coords,
-        title: location.name,
+        position: { lat:venue.venue.location.lat, lng: venue.venue.location.lng},
+        title: venue.venue.name,
       });
 
       console.log(marker);
@@ -153,7 +178,7 @@ export default class App extends Component {
             </DropdownToggle>
           <DropdownMenu>
             <ListGroup>
-                  {locations.map((location, id) => {
+                  {this.state.venues.map((venue, id) => {
                     return (<ListGroupItem 
                       tag="button"
                       key={id}
@@ -162,7 +187,7 @@ export default class App extends Component {
                       value={this.state.input}
                       action
                     >
-                      {location.name}
+                      {venue.venue.name}
                     </ListGroupItem>)
                   })}
             </ListGroup>
