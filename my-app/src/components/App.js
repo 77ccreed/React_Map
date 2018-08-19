@@ -1,3 +1,8 @@
+//TODO:
+//1)modali sisu puudub
+//2) teksti sisestamisel kuva vastavad asukohad asukohtade listis
+//3) klikk markeril seab markeri kaardi keskmeks
+
 import React, {
   Component
 } from 'react'
@@ -28,14 +33,15 @@ export default class App extends Component {
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggle = this.toggle.bind(this);
     this.updateInput=this.updateInput.bind(this);
+    //this.handleInput= this.handleInput.bind(this);
 
     //set state
     this.state = {
       modal: false,
       dropdownOpen: true,
-      input:"",
       venues:[],
-      markers:[]
+      input: "",
+      searchedPlaces: []
     };  
   }
 
@@ -52,18 +58,25 @@ export default class App extends Component {
   }
 
  updateInput(event){
-   const value= event.target.value 
+   const value = event.target.value 
    this.setState(() => ({
      input:value    
    }));   
    console.log(value);
   }
 
-  handleInput(){
-    
-  }
 
-
+  //TODO:
+  // teksti sisestamisel kuva vastavad asukohad asukohtade listis
+  /*handleInput = (input,searchedPlaces) => {
+    if(input){
+      this.setState({
+        searchedPlaces: searchedPlaces
+        
+      });
+      console.log(searchedPlaces);
+    }
+  }*/
 
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
    gm_authFailure() {
@@ -90,7 +103,7 @@ export default class App extends Component {
       query: "food",
       near: "Valga",
       v: 20180817
-    }
+    };
     
     // https://github.com/axios/axios
     // Use Axios to fetch Foursquare data
@@ -98,12 +111,12 @@ export default class App extends Component {
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items
-        })
+        });
       })
       .catch(error => {
         console.log("error" + error);
-      })
-  }
+      });
+  };
 
 
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
@@ -117,9 +130,9 @@ export default class App extends Component {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 14
-    })
+    });
 
-    // Loop over locations array and create markers and info window
+    // Loop over venues array and create markers
     this.state.venues.map(venue => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
@@ -128,16 +141,26 @@ export default class App extends Component {
         title: venue.venue.name,
       });
 
-      console.log(marker);
-      console.log(marker.title);
-
      // To add the marker to the map, call setMap();   
       marker.setMap(map);
 
-      // Open modal when click a marker
+      
+      // TODO:
+      // klikk markeril seab markeri kaardi keskmeks
+
+      console.log(marker.title);
+      // Open modal when click a marker and animate clicked marker
       marker.addListener('click', _ => {
         this.toggle(marker);
-      })
+        //setCenter(marker)
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(_ => {
+          marker.setAnimation(null);
+          console.log(marker.title);
+          console.log(venue.venue.name);
+        }, 2000);
+      });
+
 
       /*
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
@@ -152,7 +175,7 @@ export default class App extends Component {
         infowindow.open(map, marker);
       }); 
       */ 
-    })
+    });
   }
 
  
@@ -167,7 +190,7 @@ export default class App extends Component {
         <ModalHeader 
         toggle={this.toggle}
         >
-        Modal name
+        Modal header
         </ModalHeader>
         <ModalBody>
           Lorem ipsum dolor
