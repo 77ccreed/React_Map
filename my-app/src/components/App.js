@@ -1,7 +1,7 @@
 //TODO:
-//1)modali sisu puudub
-//2) teksti sisestamisel kuva vastavad asukohad asukohtade listis
-//3) klikk markeril seab markeri kaardi keskmeks
+//1)Add modal content
+//2) Add filtering function what displays markers and list
+//3) Set Map location when click in a Marker
 
 import React, {
   Component
@@ -24,7 +24,6 @@ import {
 //import { locations } from '../data/locations'
 import axios from 'axios'
 
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +40,8 @@ export default class App extends Component {
       dropdownOpen: true,
       venues:[],
       input: "",
-      searchedPlaces: []
+      searchedPlaces:[],
+      clickedMarker:[]     
     };  
   }
 
@@ -66,30 +66,24 @@ export default class App extends Component {
   }
 
 
-  //TODO:
-  // teksti sisestamisel kuva vastavad asukohad asukohtade listis
-  /*handleInput = (input,searchedPlaces) => {
-    if(input){
-      this.setState({
-        searchedPlaces: searchedPlaces
-        
-      });
-      console.log(searchedPlaces);
-    }
-  }*/
+  handleInput(){
+
+  }
 
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
-   gm_authFailure() {
-    window.alert("Sorry, Google Maps not working!");
+  // Handle Google Maps error
+  gm_authFailure() {
+  window.alert("Sorry, Google Maps not working!");
   }
 
   // Initialize Google Map when DOM was loaded and call script loading function.
   componentDidMount() {
-    this.getVenues()
+    this.getVenues();
     window.initMap = this.initMap
-    window.gm_authFailure = this.gm_authFailure
 
     loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap');
+
+    window.gm_authFailure = this.gm_authFailure
   }
 
 
@@ -104,9 +98,9 @@ export default class App extends Component {
       near: "Valga",
       v: 20180817
     };
-    
+   
     // https://github.com/axios/axios
-    // Use Axios to fetch Foursquare data
+    // Use Axios to fetch Foursquare data and handle errors
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
@@ -138,29 +132,26 @@ export default class App extends Component {
       // Create a marker
       let marker = new window.google.maps.Marker({
         position: { lat:venue.venue.location.lat, lng: venue.venue.location.lng},
-        title: venue.venue.name,
+        title: venue.venue.name
       });
+      console.log(venue.venue.name);
 
      // To add the marker to the map, call setMap();   
       marker.setMap(map);
 
-      
-      // TODO:
-      // klikk markeril seab markeri kaardi keskmeks
-
-      console.log(marker.title);
+     console.log(marker);
       // Open modal when click a marker and animate clicked marker
       marker.addListener('click', _ => {
+        this.setState({ clickedMarker : [] })
         this.toggle(marker);
-        //setCenter(marker)
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         setTimeout(_ => {
           marker.setAnimation(null);
-          console.log(marker.title);
-          console.log(venue.venue.name);
         }, 2000);
+        // Add clicked marker to the clickedMarker array
+        this.state.clickedMarker.push(marker.title)
+        console.log(this.state.clickedMarker);
       });
-
 
       /*
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
@@ -185,17 +176,18 @@ export default class App extends Component {
       <Modal 
       isOpen={this.state.modal} 
       toggle={this.toggle} 
-      className={this.props.className}
+      className={this.props.className} 
       >
         <ModalHeader 
         toggle={this.toggle}
         >
-        Modal header
+            {this.state.clickedMarker}
         </ModalHeader>
         <ModalBody>
           Lorem ipsum dolor
           </ModalBody>
-        <ModalFooter>
+        <ModalFooter
+        >
           <Button 
           color="primary" 
           onClick={this.toggle}
@@ -220,8 +212,8 @@ export default class App extends Component {
         <InputGroupButtonDropdown 
         addonType="append" 
         isOpen={this.state.dropdownOpen} 
-        toggle={this.toggleDropDown
-        }>
+        toggle={this.toggleDropDown}
+        >
           <DropdownToggle caret>
             Locations
             </DropdownToggle>
