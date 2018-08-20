@@ -66,10 +66,6 @@ export default class App extends Component {
   }
 
 
-  handleInput(){
-
-  }
-
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
   // Handle Google Maps error
   gm_authFailure() {
