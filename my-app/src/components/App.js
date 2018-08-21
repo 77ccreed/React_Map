@@ -5,9 +5,10 @@
 
 import React, {
   Component
-} from 'react'
-import Map from './Map'
-import './../css/App.css'
+} from 'react';
+import Map from './Map';
+import './../css/App.css';
+import escapeRegExp from 'escape-string-regexp';
 import {
   Button, 
   Modal, 
@@ -22,7 +23,7 @@ import {
   ListGroup,
   ListGroupItem } from 'reactstrap';
 //import { locations } from '../data/locations'
-import axios from 'axios'
+import axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {
@@ -31,17 +32,18 @@ export default class App extends Component {
     //bind this
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.updateInput=this.updateInput.bind(this);
-    //this.handleInput= this.handleInput.bind(this);
+    //this.updateInput=this.updateInput.bind(this);
+     //this.handleInput= this.handleInput.bind(this);
+    //this.searchLocations = this.searchLocations.bind(this);
 
     //set state
     this.state = {
       modal: false,
       dropdownOpen: true,
       venues:[],
-      input: "",
-      searchedPlaces:[],
-      clickedMarker:[]     
+      query: "",
+      clickedMarker:[],
+      searchedVenue:[]
     };  
   }
 
@@ -57,14 +59,39 @@ export default class App extends Component {
     });
   }
 
- updateInput(event){
-   const value = event.target.value 
-   this.setState(() => ({
-     input:value    
-   }));   
-   console.log(value);
-  }
+/*
+ updateQuery = (query) => {
+   this.setState({ dropdownOpen: true });
+   this.setState({
+     query:query
+   })  
+   this.handleInput(query)
+   this.initMap();
+ }
 
+ 
+ handleInput = (query) => {
+   
+   let searchVenue
+
+   if (query) {
+     const match = new RegExp(escapeRegExp(this.state.query), 'i');
+
+     // Add location to the array if its title match the query 
+     searchVenue = this.state.venues.filter(venue =>
+       match.test(venue.venue.name)
+     );
+     this.setState({
+       searchedVenue: searchVenue
+     });
+   }
+  else{
+     this.setState({
+       searchedVenue: this.state.venues
+     });
+   }  
+ };
+ */
 
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
   // Handle Google Maps error
@@ -73,14 +100,22 @@ export default class App extends Component {
   }
 
   // Initialize Google Map when DOM was loaded and call script loading function.
-  componentDidMount() {
-    this.getVenues();
+  componentDidMount() {  
+    this.getVenues();  
     window.initMap = this.initMap
-
+    
     loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap');
 
     window.gm_authFailure = this.gm_authFailure
+
+ 
   }
+
+  /*componentDidUpdate(){
+    this.setState({
+      searchedVenue: this.searchedVenue
+    });
+  }*/
 
 
   //https://www.youtube.com/watch?v=dAhMIF0fNpo&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=3
@@ -99,7 +134,7 @@ export default class App extends Component {
     // Use Axios to fetch Foursquare data and handle errors
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
-        this.setState({
+        this.setState({         
           venues: response.data.response.groups[0].items
         });
       })
@@ -109,9 +144,49 @@ export default class App extends Component {
   };
 
 
+
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
   // Initialize Google Map
   initMap = () => {
+
+   if(!this.state.query){
+     this.setState({
+       searchedVenue: this.state.venues
+     });
+   }
+
+    this.updateQuery = (query) => {
+      this.setState({ dropdownOpen: true });
+      this.setState({
+        query: query
+      })
+      this.handleInput(query)
+      this.initMap();
+    }
+
+
+    this.handleInput = (query) => {
+
+      let searchVenue
+
+      if (query) {
+        const match = new RegExp(escapeRegExp(this.state.query), 'i');
+
+        // Add location to the array if its title match the query 
+        searchVenue = this.state.venues.filter(venue =>
+          match.test(venue.venue.name)
+        );
+        this.setState({
+          searchedVenue: searchVenue
+        });
+      }
+      else {
+        this.setState({
+          searchedVenue: this.state.venues
+        });
+      }
+    };
+    
     let myLatLng = {
       lat: 57.78145679999999,
       lng: 26.0550403
@@ -121,24 +196,24 @@ export default class App extends Component {
       center: myLatLng,
       zoom: 14
     });
-
+ 
     // Loop over venues array and create markers
-    this.state.venues.map(venue => {
+    this.state.searchedVenue.map(venue => {
+      console.log(venue.venue.name);
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
       let marker = new window.google.maps.Marker({
         position: { lat:venue.venue.location.lat, lng: venue.venue.location.lng},
         title: venue.venue.name
       });
-      console.log(venue.venue.name);
+      //console.log(venue.venue.name);
 
      // To add the marker to the map, call setMap();   
       marker.setMap(map);
 
-     console.log(marker);
       // Open modal when click a marker and animate clicked marker
       marker.addListener('click', _ => {
-        this.setState({ clickedMarker : [] })
+        this.setState({ clickedMarker : [] });
         this.toggle(marker);
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         setTimeout(_ => {
@@ -163,8 +238,7 @@ export default class App extends Component {
       }); 
       */ 
     });
-  }
-
+  };
  
   render() {
     return (
@@ -202,8 +276,8 @@ export default class App extends Component {
         <Input 
         placeholder="Add location name" 
         id="input"
-        value={this.state.input}
-        onChange={this.updateInput}
+        value={this.state.query}
+        onChange={(event) => this.updateQuery(event.target.value)}
         />
         <InputGroupButtonDropdown 
         addonType="append" 
@@ -215,7 +289,7 @@ export default class App extends Component {
             </DropdownToggle>
           <DropdownMenu>
             <ListGroup>
-                  {this.state.venues.map((venue, id) => {
+                {this.state.searchedVenue.map((venue, id) => {
                     return (<ListGroupItem 
                       tag="button"
                       key={id}
@@ -232,7 +306,6 @@ export default class App extends Component {
         </InputGroupButtonDropdown>
       </InputGroup>  
       <Map 
-          value={this.state.input}
       />
     </main>
     )
