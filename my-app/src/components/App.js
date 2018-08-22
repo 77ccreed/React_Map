@@ -32,8 +32,8 @@ export default class App extends Component {
     //bind this
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggle = this.toggle.bind(this);
-    //this.updateInput=this.updateInput.bind(this);
-     //this.handleInput= this.handleInput.bind(this);
+    //this.updateQuery=this.updateInput.bind(this);
+     //this.handleQuery= this.handleInput.bind(this);
     //this.searchLocations = this.searchLocations.bind(this);
 
     //set state
@@ -43,7 +43,9 @@ export default class App extends Component {
       venues:[],
       query: "",
       clickedMarker:[],
-      searchedVenue:[]
+      searchedVenue:[],
+      infowindow: ''
+
     };  
   }
 
@@ -59,47 +61,13 @@ export default class App extends Component {
     });
   }
 
-/*
- updateQuery = (query) => {
-   this.setState({ dropdownOpen: true });
-   this.setState({
-     query:query
-   })  
-   this.handleInput(query)
-   this.initMap();
- }
-
- 
- handleInput = (query) => {
-   
-   let searchVenue
-
-   if (query) {
-     const match = new RegExp(escapeRegExp(this.state.query), 'i');
-
-     // Add location to the array if its title match the query 
-     searchVenue = this.state.venues.filter(venue =>
-       match.test(venue.venue.name)
-     );
-     this.setState({
-       searchedVenue: searchVenue
-     });
-   }
-  else{
-     this.setState({
-       searchedVenue: this.state.venues
-     });
-   }  
- };
- */
-
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
   // Handle Google Maps error
   gm_authFailure() {
   window.alert("Sorry, Google Maps not working!");
   }
 
-  // Initialize Google Map when DOM was loaded and call script loading function.
+  // Initialize Google Map when DOM was loaded and call script loading function, fetch Fourswuare venues and display Google Map error if it happen.
   componentDidMount() {  
     this.getVenues();  
     window.initMap = this.initMap
@@ -107,16 +75,7 @@ export default class App extends Component {
     loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap');
 
     window.gm_authFailure = this.gm_authFailure
-
- 
   }
-
-  /*componentDidUpdate(){
-    this.setState({
-      searchedVenue: this.searchedVenue
-    });
-  }*/
-
 
   //https://www.youtube.com/watch?v=dAhMIF0fNpo&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=3
   // Get Foursquare data
@@ -143,103 +102,106 @@ export default class App extends Component {
       });
   };
 
-
-
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
   // Initialize Google Map
-  initMap = () => {
+    initMap = () => {
+     
+  if (!this.state.query) {
+    this.setState({
+      searchedVenue: this.state.venues
+    });
+  }
 
-   if(!this.state.query){
-     this.setState({
-       searchedVenue: this.state.venues
-     });
-   }
+  this.updateQuery = (query) => {
+    this.setState({ dropdownOpen: true });
+    this.setState({
+      query: query
+    })
+    this.handleInput(query);
+    this.initMap();
+  }
 
-    this.updateQuery = (query) => {
-      this.setState({ dropdownOpen: true });
+  this.handleInput = (query) => {
+    let searchVenue
+
+    if (query) {
+      const match = new RegExp(escapeRegExp(this.state.query), 'i');
+
+      // Add location to the array if its title match the query 
+      searchVenue = this.state.venues.filter(venue =>
+        match.test(venue.venue.name)
+      );
       this.setState({
-        query: query
-      })
-      this.handleInput(query)
-      this.initMap();
+        searchedVenue: searchVenue
+      });
     }
-
-
-    this.handleInput = (query) => {
-
-      let searchVenue
-
-      if (query) {
-        const match = new RegExp(escapeRegExp(this.state.query), 'i');
-
-        // Add location to the array if its title match the query 
-        searchVenue = this.state.venues.filter(venue =>
-          match.test(venue.venue.name)
-        );
-        this.setState({
-          searchedVenue: searchVenue
-        });
-      }
-      else {
-        this.setState({
-          searchedVenue: this.state.venues
-        });
-      }
-    };
-    
-    let myLatLng = {
-      lat: 57.78145679999999,
-      lng: 26.0550403
-    };
-
-    let map = new window.google.maps.Map(document.getElementById('map'), {
-      center: myLatLng,
-      zoom: 14
-    });
- 
-    // Loop over venues array and create markers
-    this.state.searchedVenue.map(venue => {
-      console.log(venue.venue.name);
-      // https://developers.google.com/maps/documentation/javascript/markers#add
-      // Create a marker
-      let marker = new window.google.maps.Marker({
-        position: { lat:venue.venue.location.lat, lng: venue.venue.location.lng},
-        title: venue.venue.name
+    else {
+      this.setState({
+        searchedVenue: this.state.venues
       });
-      //console.log(venue.venue.name);
-
-     // To add the marker to the map, call setMap();   
-      marker.setMap(map);
-
-      // Open modal when click a marker and animate clicked marker
-      marker.addListener('click', _ => {
-        this.setState({ clickedMarker : [] });
-        this.toggle(marker);
-        marker.setAnimation(window.google.maps.Animation.BOUNCE);
-        setTimeout(_ => {
-          marker.setAnimation(null);
-        }, 2000);
-        // Add clicked marker to the clickedMarker array
-        this.state.clickedMarker.push(marker.title)
-        console.log(this.state.clickedMarker);
-      });
-
-      /*
-      // https://developers.google.com/maps/documentation/javascript/infowindows#open
-      // Add an info window
-      let infowindow = new google.maps.InfoWindow({
-        content: location.name      
-      });
-
-      // https://developers.google.com/maps/documentation/javascript/infowindows#open
-      // Open an info window
-      marker.addListener('click', function () {
-        infowindow.open(map, marker);
-      }); 
-      */ 
-    });
+    }
   };
- 
+
+  let myLatLng = {
+    lat: 57.78145679999999,
+    lng: 26.0550403
+  };
+
+  let map = new window.google.maps.Map(document.getElementById('map'), {
+    center: myLatLng,
+    zoom: 13
+  });
+
+  // Loop over venues array and create markers
+  this.state.searchedVenue.map((venue, id) => {
+    // https://developers.google.com/maps/documentation/javascript/markers#add
+    // Create a marker
+    let marker = new window.google.maps.Marker({
+      position: { lat: venue.venue.location.lat, lng: venue.venue.location.lng },
+      title: venue.venue.name,
+      key: { id }
+    });
+
+    // To add the marker to the map, call setMap();   
+    marker.setMap(map);
+  
+    // Open infowindow when click a marker and animate clicked marker. Close infowindow when animation end.
+     marker.addListener('click', _ => {
+      this.setState({
+        dropdownOpen: true
+      });
+      this.setState({ clickedMarker: [] });
+      //this.toggle(marker);
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
+      setTimeout(_ => {
+        infowindow.close();
+        marker.setAnimation(null);
+      }, 3000);
+      // Add clicked marker to the clickedMarker array
+      this.state.clickedMarker.push(marker.title)
+    });
+
+    // Infowindow content
+    let contentString =
+      (`<b>Foursquare info:
+      <br>Venue name: ${venue.venue.name}
+      <br>Venue id: ${venue.venue.id}</b>`)
+      ;
+
+    // https://developers.google.com/maps/documentation/javascript/infowindows#open
+    // Add an info window
+    let infowindow = new window.google.maps.InfoWindow({
+      content: contentString
+    });
+
+    // https://developers.google.com/maps/documentation/javascript/infowindows#open
+    // Open an info window
+    marker.addListener('click', function () {
+      infowindow.open(map, marker);
+    });
+  });
+};
+
   render() {
     return (
     <main>
@@ -289,17 +251,15 @@ export default class App extends Component {
             </DropdownToggle>
           <DropdownMenu>
             <ListGroup>
-                {this.state.searchedVenue.map((venue, id) => {
-                    return (<ListGroupItem 
+                {this.state.searchedVenue.map((venue, id) => {               
+                    return (<ListGroupItem
                       tag="button"
                       key={id}
                       id="list-items"
-                      onClick={this.toggle}
-                      value={this.state.input}
                       action
                     >
                       {venue.venue.name}
-                    </ListGroupItem>)
+                    </ListGroupItem>)             
                   })}
             </ListGroup>
           </DropdownMenu>

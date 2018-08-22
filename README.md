@@ -1,8 +1,7 @@
 # Udacity FEND Project #8: Local diner - Neighbourhood Map App
-
 This app uses Google Maps and Foursquare's API to list local places. The project was built for the Udacity FEND.
 
-# Setup Instructions
+## Setup Instructions
 * Offline mode is availible only in production mode.
 * Download or git clone https://github.com/77ccreed/React_Map 
 * cd my-app
