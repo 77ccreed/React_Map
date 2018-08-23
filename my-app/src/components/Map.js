@@ -1,70 +1,107 @@
-import React from 'react'
-
+import React, {
+  Component
+} from 'react';
+/*
 export default () => {
   return (
     <div id="map" role="application" tabIndex="-1"></div>
   )
-}
+}*/
 
-//import React, { Component } from 'react';
-//import { locations } from '../data/locations'
+class Map extends Component {
 
+  state = {
+    myLatLng: { lat: 57.78145679999999, lng: 26.0550403 }
+  }
 
-
-
-/*class Map extends Component {
+  
 
   // Initialize Google Map when DOM was loaded and call script loading function.
   componentDidMount() {
     window.initMap = this.initMap;
 
     loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap')
+
+    window.gm_authFailure = this.gm_authFailure
   }
 
 
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
   // Initialize Google Map
   initMap = () => {
-    let myLatLng = {
-      lat: 57.78145679999999,
-      lng: 26.0550403
-    };
+    let { venues } = this.props
+    console.log(venues);
 
-    let map = new google.maps.Map(document.getElementById('map'), {
-      center: myLatLng,
-      zoom: 14
-    })
+    let map = new window.google.maps.Map(document.getElementById('map'), {
+      center: this.state.myLatLng,
+      zoom: 13
+    });
 
-    // Loop over locations and create markers and info window
-    locations.map(location => {
+    // Loop over venues array and create markers
+    this.props.venues.forEach(venue => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
-      // Add Google Maps marker
-      let marker = new google.maps.Marker({
-        map: map,
-        position: location.coords,
-        title: location.name,
-      })
-      console.log()
+      // Create a marker
+      let marker = new window.google.maps.Marker({
+        position: { lat: venue.venue.location.lat, lng: venue.venue.location.lng },
+        title: venue.venue.name
+      });
+      /*
+          // Loop over venues array and create markers
+           locations.map((venue) => {
+            // https://developers.google.com/maps/documentation/javascript/markers#add
+            // Create a marker
+            let marker = new window.google.maps.Marker({
+              position: venue.coords,
+              title: venue.name
+            })  */
+
+      // To add the marker to the map, call setMap();   
+      marker.setMap(map)
+
+      // Open infowindow when click a marker and animate clicked marker. Close infowindow when animation end.
+      /*
+      marker.addListener('click', _ => {
+        this.setState({
+          dropdownOpen: true
+        });
+        this.setState({ clickedMarker: [] });
+        //this.toggle(marker);
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(_ => {
+          infowindow.close();
+          marker.setAnimation(null);
+        }, 3000);
+        // Add clicked marker to the clickedMarker array
+        this.state.clickedMarker.push(marker.title);
+      });*/
+
+      // Infowindow content
+      /*
+     let contentString =
+        (`<b>Foursquare info:
+      <br>Venue name: ${venue.venue.name}
+      <br>Venue id: ${venue.venue.id}</b>
+      `)
+        ;*/
 
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
       // Add an info window
-      let infowindow = new google.maps.InfoWindow({
-        content: location.name
-      });
+      /* let infowindow = new window.google.maps.InfoWindow({
+         content: contentString
+       });*/
 
       // https://developers.google.com/maps/documentation/javascript/infowindows#open
       // Open an info window
-      marker.addListener('click', function () {
-        infowindow.open(map, marker);
-
-      });
-    })
-  }
+      /* marker.addListener('click', function () {
+         infowindow.open(map, marker);
+        });*/
+    });
+  };
 
   render() {
+  
     return (
-      <div id="map">
-      </div>
+      <div id="map" role="application" tabIndex="-1"></div>
     )
   }
 }
@@ -84,4 +121,4 @@ function loadMapJS(src) {
   };
   ref.parentNode.insertBefore(script, ref);
 }
-*/
+

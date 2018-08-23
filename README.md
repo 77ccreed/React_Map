@@ -15,6 +15,7 @@ This app uses Google Maps and Foursquare's API to list local places. The project
 * axios https://github.com/axios/axios
 * reactstrap https://reactstrap.github.io/
 * escape-string-regexp https://www.npmjs.com/package/escape-string-regexp
+* prop-types https://www.npmjs.com/package/prop-types
 
 ### API
 * Google Maps API https://cloud.google.com/maps-platform/
