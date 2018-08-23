@@ -2,11 +2,12 @@
 This app uses Google Maps and Foursquare's API to list local places. The project was built for the Udacity FEND.
 
 ## Setup Instructions
-* Offline mode is availible only in production mode.
-* Download or git clone https://github.com/77ccreed/React_Map 
+* Download repository or git clone https://github.com/77ccreed/React_Map 
 * cd my-app
-* npm install
-* npm start
+* npm install or yarn install
+* npm start or yarn start
+* Offline mode is availible only in production mode.
+* To run production version, run yarn build or npm build on your terminal.
 
 ## Dependencies
 ### React Packages
