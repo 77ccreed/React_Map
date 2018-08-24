@@ -38,7 +38,7 @@ export default class App extends Component {
     });
   }
 
-  // Get venues w
+  // Get venues
   componentDidMount() {
     this.getVenues();
   }
