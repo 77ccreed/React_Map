@@ -6,8 +6,8 @@ class Map extends Component {
 
   state = {
     myLatLng: { lat: 57.78145679999999, lng: 26.0550403 },
-    map:"",
-    markers:[]
+    map: "",
+    markers: []
   }
 
   // Initialize Google Map when DOM was loaded and call script loading function and
@@ -28,27 +28,27 @@ class Map extends Component {
       zoom: 13
     });
 
-   this.setState({ map });
+    this.setState({ map });
 
 
     // Empty array for markers
-   // let markersArr = [];
+    // let markersArr = [];
 
     // Loop over venues array and create markers
     //venues.forEach(venue => {
-      // https://developers.google.com/maps/documentation/javascript/markers#add
-      // Create a marker
-   /*   let marker = new window.google.maps.Marker({
-        position: { lat: venue.venue.location.lat, lng: venue.venue.location.lng },
-        title: venue.venue.name
-      });*/
+    // https://developers.google.com/maps/documentation/javascript/markers#add
+    // Create a marker
+    /*   let marker = new window.google.maps.Marker({
+         position: { lat: venue.venue.location.lat, lng: venue.venue.location.lng },
+         title: venue.venue.name
+       });*/
 
-      // Add marker to the empty array
-     // markersArr.push(marker);
+    // Add marker to the empty array
+    // markersArr.push(marker);
 
-      // To add the marker to the map, call setMap();   
-     // marker.setMap(map)
-   // });
+    // To add the marker to the map, call setMap();   
+    // marker.setMap(map)
+    // });
     //this.setState({ markers: markersArr })
   }
 

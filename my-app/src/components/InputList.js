@@ -34,8 +34,8 @@ export default class InputList extends React.Component {
   handleInput = (query) => {
     let searchVenue
 
-    if (query) {  
-           
+    if (query) {
+
       const match = new RegExp(escapeRegExp(this.state.query), 'i');
 
       // Add location to the array if its title match the query 
@@ -44,16 +44,16 @@ export default class InputList extends React.Component {
       );
       this.setState({
         query: query,
-         searchedVenue: searchVenue 
-        });
+        searchedVenue: searchVenue
+      });
     }
-    else { 
+    else {
       searchVenue = this.props.venuesList;
       this.setState({
         query: "",
-        searchedVenue: searchVenue 
+        searchedVenue: searchVenue
       });
-    } 
+    }
     //this.props.onFilterLocation(searchVenue);
     //this.props.onUnselectLocation();
   };
@@ -67,30 +67,30 @@ export default class InputList extends React.Component {
   render() {
     console.log(this.state.searchedVenue);
     const { searchedVenue } = this.state;
-    return ( 
-        <InputGroup>
-          <Input 
+    return (
+      <InputGroup>
+        <Input
           placeholder="Add location name"
           id="input"
           value={this.state.query}
           onChange={(event) => this.updateQuery(event.target.value)}
-          />
-          <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-            <DropdownToggle caret>
-              Choose a Dinery
+        />
+        <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+          <DropdownToggle caret>
+            Choose a Dinery
             </DropdownToggle>
-            <DropdownMenu>
-            {searchedVenue.map((venue,id) => (
+          <DropdownMenu>
+            {searchedVenue.map((venue, id) => (
               <DropdownItem
                 key={id}
                 className="list-items"
               >
                 {venue.name}
-                </DropdownItem>
+              </DropdownItem>
             ))}
-            </DropdownMenu>
-          </InputGroupButtonDropdown>
-        </InputGroup>      
+          </DropdownMenu>
+        </InputGroupButtonDropdown>
+      </InputGroup>
     );
   }
 }

@@ -13,7 +13,7 @@ export default class App extends Component {
 
     //set state
     this.state = {
-      locations:locations,
+      locations: locations,
       venues: []
     };
   }
@@ -51,11 +51,11 @@ export default class App extends Component {
   render() {
     return (
       <main>
-        <InputList 
+        <InputList
           venuesList={this.state.locations}
         />
-        <Map  
-          filteredLocation={this.state.filteredLocation}    
+        <Map
+          filteredLocation={this.state.filteredLocation}
         />
       </main>
     )
