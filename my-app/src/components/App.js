@@ -55,7 +55,8 @@ export default class App extends Component {
           venuesList={this.state.locations}
         />
         <Map
-          filteredLocation={this.state.filteredLocation}
+          venuesList={this.state.locations}
+          //filteredLocation={this.state.filteredLocation}
         />
       </main>
     )

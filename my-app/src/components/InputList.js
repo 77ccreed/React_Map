@@ -66,7 +66,7 @@ export default class InputList extends React.Component {
 
   render() {
     console.log(this.state.searchedVenue);
-    const { searchedVenue } = this.state;
+    const { searchedVenue} = this.state;
     return (
       <InputGroup>
         <Input
