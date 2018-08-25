@@ -6,41 +6,51 @@ class Map extends Component {
 
   state = {
     myLatLng: { lat: 57.78145679999999, lng: 26.0550403 },
+    map:"",
+    markers:[]
   }
 
   // Initialize Google Map when DOM was loaded and call script loading function and
   // handle Map errors.
   componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure
     window.initMap = this.initMap;
 
     loadMapJS('https://maps.googleapis.com/maps/api/js?&key=AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M&v=3&callback=initMap')
-
-    window.gm_authFailure = this.gm_authFailure
   }
 
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
   // Initialize Google Map
   initMap = () => {
-    let { venues} = this.props
-    console.log(venues);
+   //let { venues } = this.props
+
 
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: this.state.myLatLng,
       zoom: 13
     });
+   this.setState({ map });
+
+
+    // Empty array for markers
+   // let markersArr = [];
 
     // Loop over venues array and create markers
-    this.props.venues.map(venue => {
+    //venues.forEach(venue => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
-      let marker = new window.google.maps.Marker({
+   /*   let marker = new window.google.maps.Marker({
         position: { lat: venue.venue.location.lat, lng: venue.venue.location.lng },
         title: venue.venue.name
-      });
+      });*/
+
+      // Add marker to the empty array
+     // markersArr.push(marker);
 
       // To add the marker to the map, call setMap();   
-      marker.setMap(map)
-    });
+     // marker.setMap(map)
+   // });
+    //this.setState({ markers: markersArr })
   }
 
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors
@@ -49,7 +59,7 @@ class Map extends Component {
     window.alert("Sorry, Google Maps not working!");
   }
 
-  render() { 
+  render() {
     return (
       <div id="map" role="application" tabIndex="-1"></div>
     )
