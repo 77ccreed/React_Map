@@ -25,7 +25,7 @@ class Map extends Component {
   // Initialize Google Map
   initMap = () => {
    
-    const { venuesList } = this.props;
+    const { filteringLocation } = this.props;
 
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: this.state.myLatLng,
@@ -33,7 +33,7 @@ class Map extends Component {
     });
  
     // Loop over venues array and create markers
-    venuesList.forEach(venue => {
+    filteringLocation.forEach(venue => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
       let marker = new window.google.maps.Marker({

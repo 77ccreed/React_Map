@@ -23,6 +23,34 @@ export default class InputList extends React.Component {
     };
   }
 
+  toggleDropDown() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  /*
+  updateQuery = query => {
+    let SearchVenue;
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), "i");
+      SearchVenue = this.props.venuesList.filter(venue =>
+        match.test(venue.name)
+      );
+      this.setState({
+        query: query,
+        searchedVenue: SearchVenue
+      });
+    } else {
+      SearchVenue = this.props.venuesList;
+      this.setState({
+        query: "",
+        searchedVenue: SearchVenue
+      });
+    }
+    this.props.onFilterLocation(this.SearchVenue);
+  };*/
+
   updateQuery = (query) => {
     this.setState({
       query: query,
@@ -32,40 +60,31 @@ export default class InputList extends React.Component {
   }
 
   handleInput = (query) => {
-    let searchVenue
-
+    let SearchVenue;
     if (query) {
 
       const match = new RegExp(escapeRegExp(this.state.query), 'i');
 
       // Add location to the array if its title match the query 
-      searchVenue = this.props.venuesList.filter(venue =>
+      SearchVenue = this.props.venuesList.filter(venue =>
         match.test(venue.name)
       );
       this.setState({
         query: query,
-        searchedVenue: searchVenue
+        searchedVenue: SearchVenue
       });
     }
     else {
-      searchVenue = this.props.venuesList;
+      SearchVenue = this.props.venuesList;
       this.setState({
         query: "",
-        searchedVenue: searchVenue
+        searchedVenue: SearchVenue
       });
     }
-    //this.props.onFilterLocation(searchVenue);
-    //this.props.onUnselectLocation();
+    this.props.onFilterLocation(SearchVenue);
   };
 
-  toggleDropDown() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  }
-
   render() {
-    console.log(this.state.searchedVenue);
     const { searchedVenue} = this.state;
     return (
       <InputGroup>
