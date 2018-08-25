@@ -5,6 +5,7 @@ import Map from './Map';
 import InputList from './InputList';
 import './../css/App.css';
 import axios from 'axios';
+import { locations } from '../data/locations'
 
 export default class App extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class App extends Component {
 
     //set state
     this.state = {
+      locations:locations,
       venues: []
     };
   }
@@ -46,15 +48,14 @@ export default class App extends Component {
       });
   };
 
-
   render() {
     return (
       <main>
         <InputList 
-          venuesList={this.state.venues}
+          venuesList={this.state.locations}
         />
-        <Map
-          
+        <Map  
+          filteredLocation={this.state.filteredLocation}    
         />
       </main>
     )

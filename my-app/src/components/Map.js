@@ -22,13 +22,12 @@ class Map extends Component {
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
   // Initialize Google Map
   initMap = () => {
-   //let { venues } = this.props
-
 
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: this.state.myLatLng,
       zoom: 13
     });
+
    this.setState({ map });
 
 

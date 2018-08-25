@@ -24,7 +24,6 @@ export default class InputList extends React.Component {
   }
 
   updateQuery = (query) => {
-
     this.setState({
       query: query,
       dropdownOpen: true
@@ -41,7 +40,7 @@ export default class InputList extends React.Component {
 
       // Add location to the array if its title match the query 
       searchVenue = this.props.venuesList.filter(venue =>
-        match.test(venue.venue.name)
+        match.test(venue.name)
       );
       this.setState({
         query: query,
@@ -59,7 +58,6 @@ export default class InputList extends React.Component {
     //this.props.onUnselectLocation();
   };
 
-
   toggleDropDown() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
@@ -67,6 +65,7 @@ export default class InputList extends React.Component {
   }
 
   render() {
+    console.log(this.state.searchedVenue);
     const { searchedVenue } = this.state;
     return ( 
         <InputGroup>
@@ -86,7 +85,7 @@ export default class InputList extends React.Component {
                 key={id}
                 className="list-items"
               >
-                {venue.venue.name}
+                {venue.name}
                 </DropdownItem>
             ))}
             </DropdownMenu>
