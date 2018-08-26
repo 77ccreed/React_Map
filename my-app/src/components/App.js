@@ -11,24 +11,27 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
-    //this.filteringLocation = this.filteringLocation.bind(this);
-
     //set state
     this.state = {
       locations: locations,
       venues: [],
-      filteringLocation: locations
+      filteredLocation: locations,
+
     };
- }
+  }
 
   /**
    * Function for changing of state for filtering locations
    */
   filterLocation = locations => {
+    
     this.setState({
       filteredLocation: locations
     });
-  }
+    console.log("hei");
+    console.log(locations);
+  };
+
 
   // Get venues
   componentDidMount() {
@@ -64,12 +67,12 @@ export default class App extends Component {
     return (
       <main>
         <InputList
-          venuesList={this.state.locations}
-          onfilterLocation={this.filterLocation}
+          locationList={locations}
+          onFilterLocation={this.filterLocation}
         />
         <Map
-          venuesList={this.state.locations}
-          filteringLocation={this.state.filteringLocation}
+          locationList={this.state.locations}
+          filteredLocation={this.state.filteredLocation}
         />
       </main>
     )

@@ -7,8 +7,7 @@ class Map extends Component {
   state = {
     myLatLng: { lat: 57.78145679999999, lng: 26.0550403 },
     map: "",
-    markers: [],
-   
+    markers: []
   }
 
   // Initialize Google Map when DOM was loaded and call script loading function and
@@ -20,32 +19,31 @@ class Map extends Component {
 
     window.gm_authFailure = this.gm_authFailure
   }
-
+  
   // https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
   // Initialize Google Map
   initMap = () => {
-   
-    const { filteringLocation } = this.props;
-
+    
+    const { filteredLocation } = this.props;
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: this.state.myLatLng,
       zoom: 13
     });
- 
+
     // Loop over venues array and create markers
-    filteringLocation.forEach(venue => {
+    filteredLocation.forEach(location => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
       let marker = new window.google.maps.Marker({
-        position: venue.coords,
-        title: venue.name
+        position: location.coords,
+        title: location.name
       });
-  
+
 
       // To add the marker to the map, call setMap();   
       marker.setMap(map)
 
-      
+
     });
   };
 

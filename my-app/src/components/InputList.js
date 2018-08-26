@@ -19,7 +19,7 @@ export default class InputList extends React.Component {
     this.state = {
       dropdownOpen: true,
       query: "",
-      searchedVenue: this.props.venuesList
+      searchedVenue: this.props.locationList
     };
   }
 
@@ -29,27 +29,6 @@ export default class InputList extends React.Component {
     });
   }
 
-  /*
-  updateQuery = query => {
-    let SearchVenue;
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), "i");
-      SearchVenue = this.props.venuesList.filter(venue =>
-        match.test(venue.name)
-      );
-      this.setState({
-        query: query,
-        searchedVenue: SearchVenue
-      });
-    } else {
-      SearchVenue = this.props.venuesList;
-      this.setState({
-        query: "",
-        searchedVenue: SearchVenue
-      });
-    }
-    this.props.onFilterLocation(this.SearchVenue);
-  };*/
 
   updateQuery = (query) => {
     this.setState({
@@ -66,8 +45,8 @@ export default class InputList extends React.Component {
       const match = new RegExp(escapeRegExp(this.state.query), 'i');
 
       // Add location to the array if its title match the query 
-      SearchVenue = this.props.venuesList.filter(venue =>
-        match.test(venue.name)
+      SearchVenue = this.props.locationList.filter(location =>
+        match.test(location.name)
       );
       this.setState({
         query: query,
@@ -75,17 +54,19 @@ export default class InputList extends React.Component {
       });
     }
     else {
-      SearchVenue = this.props.venuesList;
+      SearchVenue = this.props.locationList;
       this.setState({
         query: "",
         searchedVenue: SearchVenue
       });
     }
     this.props.onFilterLocation(SearchVenue);
+    //console.log(this.props.venue);
+    console.log(SearchVenue);
   };
 
   render() {
-    const { searchedVenue} = this.state;
+    const { searchedVenue } = this.state;
     return (
       <InputGroup>
         <Input
@@ -99,12 +80,12 @@ export default class InputList extends React.Component {
             Choose a Dinery
             </DropdownToggle>
           <DropdownMenu>
-            {searchedVenue.map((venue, id) => (
+            {searchedVenue.map((location, id) => (
               <DropdownItem
                 key={id}
                 className="list-items"
               >
-                {venue.name}
+                {location.name}
               </DropdownItem>
             ))}
           </DropdownMenu>
