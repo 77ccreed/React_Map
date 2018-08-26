@@ -7,7 +7,8 @@ class InfoModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      venues: []
     };
 
     this.toggle = this.toggle.bind(this);
@@ -19,6 +20,40 @@ class InfoModal extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.getVenues();
+  }
+
+  /**
+   *https://www.youtube.com/watch?v=dAhMIF0fNpo&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=3
+   * Get Foursquare data
+   */
+  getVenues = () => {
+    const endPoint = "https://api.foursquare.com/v2/venues/explore?"
+    const parameters = {
+      client_id: "WQBHQGSTMIMA3AF3KZLVAP1A4JUN1AFD4F1XZDBVR10SCUL3",
+      client_secret: "AAIPSPJ2TWI4BPNLMCCRP0ZXEOV25HKZLQL45BDSKJZGMD4Q",
+      query: "food",
+      near: "Valga",
+      v: 20180817
+    };
+
+    /**
+     *https://github.com/axios/axios
+     * Use Axios to fetch Foursquare data and handle errors
+     */
+    axios.get(endPoint + new URLSearchParams(parameters))
+      .then(response => {
+        this.setState({
+          venues: response.data.response.groups[0].items
+        });
+      })
+      .catch(error => {
+        console.log("error" + error);
+      });
+  };
+
+
   render() {
     return (
       <div>
@@ -26,7 +61,7 @@ class InfoModal extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet,
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
