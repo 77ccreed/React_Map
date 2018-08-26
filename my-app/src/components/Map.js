@@ -24,14 +24,14 @@ class Map extends Component {
   // Initialize Google Map
   initMap = () => {
     
-    const { filteredLocation } = this.props;
+    //const { filteredLocation } = this.props;
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: this.state.myLatLng,
       zoom: 13
     });
 
     // Loop over venues array and create markers
-    filteredLocation.forEach(location => {
+    this.props.filteredLocation.forEach(location => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
       let marker = new window.google.maps.Marker({
