@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class Gmap extends Component {
   static defaultProps = {
@@ -13,13 +12,26 @@ class Gmap extends Component {
     zoom: 13
   };
 
+  componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure
+  }
+
+
+  /**
+   *https://developers.google.com/maps/documentation/javascript/events#auth-errors
+   * Handle Google Maps errors
+   */
+  gm_authFailure() {
+    window.alert("Sorry, Google Maps not working!");
+  }
+
   render() {
 
     const { filteredLocation } = this.props;
 
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '94vh', width: '100%' }}>
+      <div id="map" role="application" tabIndex="-1" style={{ height: '94vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{
             key: 'AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M'}}
@@ -33,8 +45,8 @@ class Gmap extends Component {
             key={location.name}
             lat={location.coords.lat}
             lng={location.coords.lng}
-          />
-          ))}
+        />
+        ))}
         </GoogleMapReact>
       </div>
     );
