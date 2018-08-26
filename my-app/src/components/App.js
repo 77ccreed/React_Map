@@ -17,7 +17,7 @@ export default class App extends Component {
       locations: locations,
       venues: [],
       filteredLocation: locations,
-
+ 
     };
   }
 

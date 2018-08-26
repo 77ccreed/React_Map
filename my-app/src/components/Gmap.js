@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import Marker from './Marker';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -13,6 +14,9 @@ class Gmap extends Component {
   };
 
   render() {
+
+    const { filteredLocation } = this.props;
+
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '94vh', width: '100%' }}>
@@ -22,10 +26,15 @@ class Gmap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          <AnyReactComponent
-            lat={57.78145679999999}
-            lng={26.0550403}
+         
+
+          {filteredLocation.map((location) => (<Marker
+            location={location}
+            key={location.name}
+            lat={location.coords.lat}
+            lng={location.coords.lng}
           />
+          ))}
         </GoogleMapReact>
       </div>
     );
