@@ -27,11 +27,11 @@ class Gmap extends Component {
 
   render() {
 
-    const { filteredLocation } = this.props;
+    const { filteredLocation, onSelectLocation } = this.props;
 
     return (
       // Important! Always set the container height explicitly
-      <div id="map" role="application" tabIndex="-1" style={{ height: '94vh', width: '100%' }}>
+      <div id="map" role="application" tabIndex="-1">
         <GoogleMapReact
           bootstrapURLKeys={{
             key: 'AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M'}}
@@ -45,6 +45,7 @@ class Gmap extends Component {
             key={location.name}
             lat={location.coords.lat}
             lng={location.coords.lng}
+            onSelectLocation={onSelectLocation}
         />
         ))}
         </GoogleMapReact>

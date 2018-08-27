@@ -61,7 +61,6 @@ export default class InputList extends React.Component {
       });
     }
     this.props.onFilterLocation(SearchVenue);
-    console.log(SearchVenue);
   };
 
   render() {
@@ -83,6 +82,8 @@ export default class InputList extends React.Component {
               <DropdownItem
                 key={id}
                 className="list-items"
+                onClick={() => this.props.onSelectLocation(location)}
+                onKeyPress={() => this.props.onSelectLocation(location)}
               >
                 {location.name}
               </DropdownItem>

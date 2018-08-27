@@ -14,6 +14,8 @@ export default class App extends Component {
     this.state = {
       locations: locations,
       filteredLocation: locations,
+      activeLocation: {},
+      selected: false
     };
   }
 
@@ -26,15 +28,29 @@ export default class App extends Component {
     });
   };
 
+  /**
+ * Function for state of selected location
+ */
+  selectLocation = location => {
+    console.log(location.name);
+    this.setState({
+      activeLocation: location,
+      selected: true
+    });
+  };
+
   render() {
     return (
       <main>
         <InputList
           locationList={locations}
           onFilterLocation={this.filterLocation}
+          onSelectLocation={this.selectLocation}
+          selected={this.state.selected}
         />
         <Gmap
           filteredLocation={this.state.filteredLocation}
+          onSelectLocation={this.selectLocation}
         />
       </main>
     )
