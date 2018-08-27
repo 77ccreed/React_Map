@@ -24,14 +24,17 @@ class Gmap extends Component {
   gm_authFailure() {
     window.alert("Sorry, Google Maps not working!");
   }
-
   render() {
 
-    const { filteredLocation, onSelectLocation } = this.props;
-
+    const { filteredLocation, onSelectLocation, onUnselectLocation} = this.props;
     return (
       // Important! Always set the container height explicitly
-      <div id="map" role="application" tabIndex="-1">
+      <div 
+      id="map" 
+      role="application" 
+      tabIndex="-1"
+      onClick={e => onUnselectLocation(e.target)}
+      >
         <GoogleMapReact
           bootstrapURLKeys={{
             key: 'AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M'}}

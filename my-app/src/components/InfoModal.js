@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 class InfoModal extends React.Component {
@@ -123,10 +124,5 @@ Modal.propTypes = {
   // backdropTransition - controls backdrop transition
   // timeout is 150ms by default to match bootstrap
   // see Fade for more details
-  backdropTransition: PropTypes.shape(Fade.propTypes),
-  // modalTransition - controls modal transition
-  // timeout is 300ms by default to match bootstrap
-  // see Fade for more details
-  modalTransition: PropTypes.shape(Fade.propTypes),
   innerRef: PropTypes.object,
 }

@@ -61,6 +61,7 @@ export default class InputList extends React.Component {
       });
     }
     this.props.onFilterLocation(SearchVenue);
+    this.props.onUnselectLocation();
   };
 
   render() {
