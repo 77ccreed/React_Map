@@ -2,12 +2,13 @@
 This is the last project in the nine month course. I started with a complete beginner. Now i can
 read and write JavaScript. I've learned React for a month.
 The pace of learning has been quick.
-All this has become possible just thanks to Google, Udacity, kindly mentors and friendly fellow students. In the context of this project, I would like to thank, in particular, the two of them:
-https://github.com/nikitalk
-https://github.com/sergiubu
+All this has become possible just thanks to Google, Udacity, kindly mentors and friendly fellow students. In the context of this project, I would like to thank, in particular:
+* https://github.com/nikitalk
+* https://github.com/sergiubu
+* https://github.com/emyengineer
+* https://github.com/elharony
 
-
-I follow 300 college Udacity students in GitHub. When reading other codes I study well.
+I follow 300 Udacity students in GitHub. When I reading other codes I study well.
 
 * This app uses Google Maps and Foursquare's API to list local places.
 

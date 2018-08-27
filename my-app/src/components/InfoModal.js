@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import axios from 'axios';
 
 class InfoModal extends React.Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class InfoModal extends React.Component {
   }
 
   /**
+   *
+  https://foursquare.com/explore?mode=url&near=Valga%2C%20Estonia&nearGeoId=72057594038515812&q=Food}
    *https://www.youtube.com/watch?v=dAhMIF0fNpo&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=3
    * Get Foursquare data
    */
@@ -64,7 +67,7 @@ class InfoModal extends React.Component {
             Lorem ipsum dolor sit amet,
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+            <Button color="primary" onClick={this.toggle}>Look more</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

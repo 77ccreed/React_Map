@@ -1,11 +1,9 @@
 import React, {
   Component
 } from 'react';
-//import Map from './Map';
 import Gmap from './Gmap';
 import InputList from './InputList';
 import './../css/App.css';
-import axios from 'axios';
 import { locations } from '../data/locations'
 
 export default class App extends Component {
@@ -16,7 +14,6 @@ export default class App extends Component {
     this.state = {
       locations: locations,
       filteredLocation: locations,
- 
     };
   }
 
@@ -37,7 +34,6 @@ export default class App extends Component {
           onFilterLocation={this.filterLocation}
         />
         <Gmap
-          locationList={this.state.locations}
           filteredLocation={this.state.filteredLocation}
         />
       </main>
