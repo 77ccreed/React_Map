@@ -8,7 +8,6 @@ import {
   DropdownItem
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import escapeRegExp from 'escape-string-regexp';
 
 export default class InputList extends React.Component {
   constructor(props) {
@@ -18,8 +17,6 @@ export default class InputList extends React.Component {
 
     this.state = {
       dropdownOpen: true,
-      query: "",
-      searchedVenue: this.props.locationList
     };
   }
 
@@ -29,66 +26,20 @@ export default class InputList extends React.Component {
     });
   }
 
-
-  updateQuery = (query) => {
-    this.setState({
-      query: query,
-      dropdownOpen: true
-    })
-    this.handleInput(query)
-  }
-
-  handleInput = (query) => {
-    let SearchVenue;
-    if (query) {
-
-      const match = new RegExp(escapeRegExp(this.state.query), 'i');
-
-      // Add location to the array if its title match the query 
-      SearchVenue = this.props.locationList.filter(location =>
-        match.test(location.name)
-      );
-      this.setState({
-        query: query,
-        searchedVenue: SearchVenue
-      });
-    }
-    else {
-      SearchVenue = this.props.locationList;
-      this.setState({
-        query: "",
-        searchedVenue: SearchVenue
-      });
-    }
-    this.props.onFilterLocation(SearchVenue);
-    this.props.onUnselectLocation();
-  };
-
   render() {
-    const { searchedVenue } = this.state;
     return (
       <InputGroup>
         <Input
-          placeholder="Add location name"
-          id="input"
-          value={this.state.query}
-          onChange={(event) => this.updateQuery(event.target.value)}
+
         />
         <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
           <DropdownToggle caret>
             Choose a Dinery
             </DropdownToggle>
           <DropdownMenu>
-            {searchedVenue.map((location, id) => (
               <DropdownItem
-                key={id}
-                className="list-items"
-                onClick={() => this.props.onSelectLocation(location)}
-                onKeyPress={() => this.props.onSelectLocation(location)}
               >
-                {location.name}
               </DropdownItem>
-            ))}
           </DropdownMenu>
         </InputGroupButtonDropdown>
       </InputGroup>

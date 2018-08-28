@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Marker from './Marker';
 
 
 class Gmap extends Component {
@@ -24,16 +23,17 @@ class Gmap extends Component {
   gm_authFailure() {
     window.alert("Sorry, Google Maps not working!");
   }
+
   render() {
 
-    const { filteredLocation, onSelectLocation, onUnselectLocation} = this.props;
+  
+
     return (
       // Important! Always set the container height explicitly
       <div 
       id="map" 
       role="application" 
       tabIndex="-1"
-      onClick={e => onUnselectLocation(e.target)}
       >
         <GoogleMapReact
           bootstrapURLKeys={{
@@ -41,16 +41,7 @@ class Gmap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-         
-
-          {filteredLocation.map((location) => (<Marker
-            location={location}
-            key={location.name}
-            lat={location.coords.lat}
-            lng={location.coords.lng}
-            onSelectLocation={onSelectLocation}
-        />
-        ))}
+            
         </GoogleMapReact>
       </div>
     );

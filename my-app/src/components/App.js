@@ -18,8 +18,6 @@ export default class App extends Component {
     //set state
     this.state = {
       locations: locations,
-      filteredLocation: locations,
-      activeLocation: {},
       selected: false,
       venues: [],
       modal: false
@@ -59,7 +57,7 @@ toggle() {
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
-          locations: response.data.response.groups[0].items
+          venues: response.data.response.groups[0].items
         });
       })
       .catch(error => {
@@ -68,55 +66,16 @@ toggle() {
   };
 
 
-  /**
-   * Function for changing of state for filtering locations
-   */
-  filterLocation = locations => {   
-    this.setState({
-      filteredLocation: locations
-    });
-  };
-
-  /**
- * Function for state of selected location
- */
-  selectLocation = location => { 
-    this.toggle();
-    this.setState({
-      activeLocation: location,
-      selected: true,
-    });
-  };
-  
-  /**
-   * Function for state of unselected location
-   */
-  unselectLocation = object => {
-    if (object)
-    this.setState({
-          activeLocation: {},
-          selected: false
-        });
-  };
-
   render() {
     return (
       <main>
         <InputList
-          locationList={locations}
-          onFilterLocation={this.filterLocation}
-          onSelectLocation={this.selectLocation}
-          selected={this.state.selected}
-          onUnselectLocation={this.unselectLocation}
         />
         <Gmap
-          filteredLocation={this.state.filteredLocation}
-          onSelectLocation={this.selectLocation}
-          onUnselectLocation={this.unselectLocation}
         />
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>kkk</ModalHeader>
-          <ModalBody>KK </ModalBody>
+          <ModalHeader toggle={this.toggle}>Modal Header</ModalHeader>
+          <ModalBody>Lorem ipsum</ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
