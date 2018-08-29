@@ -40,7 +40,8 @@ export default class InputList extends React.Component {
     this.handleInput(value);
   }
 
-    /**
+  /**
+   * @description 
    * @name handleInput
    * @param input value
    * @returns filteredVenue
