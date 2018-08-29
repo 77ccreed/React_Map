@@ -15,6 +15,7 @@ export default class InputList extends React.Component {
     super(props);
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.updateInput= this.updateInput.bind(this);
 
     this.state = {
       dropdownOpen: true,
@@ -29,12 +30,13 @@ export default class InputList extends React.Component {
     });
   }
 
-  updateInput = (input) => {
+  updateInput(e){
+    const value= e.target.value
     this.setState({
       dropdownOpen: true,
-      input: input
+      input: value
     })
-    this.handleInput(input)
+    this.handleInput(value);
   }
 
   handleInput = (input) => {
@@ -64,15 +66,13 @@ export default class InputList extends React.Component {
   };
 
   render() {
-    //const { locationsList}=this.props;
-    //const { venuesList } = this.props;
     return (
       <InputGroup>
         <Input
           placeholder="Add location name"
           id="input"
           value={this.state.input}
-          onChange={(event) => this.updateInput(event.target.value)}
+          onChange={this.updateInput}
         />
         <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
           <DropdownToggle caret>
