@@ -15,7 +15,7 @@ export default class App extends Component {
     //set state
     this.state = {
       locations: locations,
-      venues: [],
+      venues: []
     };
   }
 
@@ -55,11 +55,30 @@ export default class App extends Component {
       });
   };
 
+  /**
+   * @name
+   * @param
+   * @returns
+   */
+
+  /**
+* Function for changing of state for filtering locations
+*/
+  filterLocation = venues => {
+    this.setState({
+      filteredLocation: venues
+    });
+  };
+
+
 
   render() {
     return (
       <main>
         <InputList
+        //venuesList={this.state.venues}
+        locationsList={this.state.locations}
+          onFilterLocation={this.filterLocation}
         />
         <Gmap
         />
