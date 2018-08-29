@@ -11,6 +11,8 @@ import InfoModal from './InfoModal';
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    this.filterLocation=this.filterLocation.bind(this);
  
     //set state
     this.state = {
@@ -57,17 +59,13 @@ export default class App extends Component {
   };
 
   /**
-   * @name
-   * @param
-   * @returns
+   * @name filterLocation
+   * @param filteredVenue
+   * @returns filteredLocation
    */
-
-/**
-* Function for changing of state for filtering locations
-*/
-  filterLocation = venues => {
+  filterLocation(filteredVenues){
     this.setState({
-      filteredLocation: venues
+      filteredLocation: filteredVenues
     });
   };
 
@@ -77,7 +75,6 @@ export default class App extends Component {
     return (
       <main>
         <InputList
-        //venuesList={this.state.venues}
         locationsList={this.state.locations}
         onFilterLocation={this.filterLocation}
         />

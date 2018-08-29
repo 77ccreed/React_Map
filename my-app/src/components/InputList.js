@@ -40,6 +40,11 @@ export default class InputList extends React.Component {
     this.handleInput(value);
   }
 
+    /**
+   * @name handleInput
+   * @param input value
+   * @returns filteredVenue
+   */
   handleInput(input){
 
     let SearchVenue;
@@ -64,7 +69,8 @@ export default class InputList extends React.Component {
       });
     }
     this.props.onFilterLocation(SearchVenue);
-  };
+  }
+
 
 
   render() {
@@ -101,15 +107,3 @@ InputGroup.propTypes = {
   size: PropTypes.string,
   className: PropTypes.string
 };
-
-/*
-<DropdownMenu>
-  {filteredVenue.map((venue, id) => (
-    <DropdownItem
-      key={id}
-      className="list-items"
-    >
-      {venue.venue.name}
-    </DropdownItem>
-  ))}
-</DropdownMenu>*/
