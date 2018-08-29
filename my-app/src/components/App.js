@@ -15,7 +15,8 @@ export default class App extends Component {
     //set state
     this.state = {
       locations: locations,
-      venues: []
+      filteredLocation: locations,
+      venues: [],
     };
   }
 
@@ -61,7 +62,7 @@ export default class App extends Component {
    * @returns
    */
 
-  /**
+/**
 * Function for changing of state for filtering locations
 */
   filterLocation = venues => {
@@ -78,9 +79,10 @@ export default class App extends Component {
         <InputList
         //venuesList={this.state.venues}
         locationsList={this.state.locations}
-          onFilterLocation={this.filterLocation}
+        onFilterLocation={this.filterLocation}
         />
         <Gmap
+        filteredLocation={this.state.filteredLocation}
         />
        <InfoModal />
       </main>
