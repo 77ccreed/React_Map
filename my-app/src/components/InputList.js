@@ -16,6 +16,7 @@ export default class InputList extends React.Component {
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.updateInput= this.updateInput.bind(this);
+    this.handleInput=this.handleInput.bind(this);
 
     this.state = {
       dropdownOpen: true,
@@ -39,7 +40,7 @@ export default class InputList extends React.Component {
     this.handleInput(value);
   }
 
-  handleInput = (input) => {
+  handleInput(input){
 
     let SearchVenue;
     if (input) {
@@ -64,6 +65,7 @@ export default class InputList extends React.Component {
     }
     this.props.onFilterLocation(SearchVenue);
   };
+
 
   render() {
     return (
