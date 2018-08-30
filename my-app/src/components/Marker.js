@@ -5,7 +5,7 @@ import image from "./../data/marker.svg";
 
 class Marker extends Component {
   render() {
-    const { filteredLocation } = this.props;
+    const { filteredLocation, onSelectLocation } = this.props;
 
     return (
       <div>
@@ -16,6 +16,8 @@ class Marker extends Component {
           className="marker"
           src={image}
           alt={filteredLocation.name}
+          onClick={() => onSelectLocation(filteredLocation)}
+          onKeyPress={() => onSelectLocation(filteredLocation)}
         />
   
       </div>

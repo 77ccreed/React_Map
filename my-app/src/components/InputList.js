@@ -41,9 +41,8 @@ export default class InputList extends React.Component {
   }
 
   /**
-   * @description 
-   * @name handleInput
-   * @param input value
+   * @description Input filtering, send returned value 
+   * to App.js and map() over a </DropdownItem>
    * @returns filteredVenue
    */
   handleInput(input){
@@ -72,8 +71,6 @@ export default class InputList extends React.Component {
     this.props.onFilterLocation(SearchVenue);
   }
 
-
-
   render() {
     return (
       <InputGroup>
@@ -92,6 +89,8 @@ export default class InputList extends React.Component {
               <DropdownItem
                 key={id}
                 className="list-items"
+                onClick={() => this.props.onSelectLocation(venue)}
+                onKeyPress={() => this.props.onSelectLocation(venue)}
               >
                 {venue.name}
               </DropdownItem>

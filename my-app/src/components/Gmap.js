@@ -27,7 +27,7 @@ class Gmap extends Component {
 
   render() {
 
-    const { filteredLocation } = this.props;
+    const { filteredLocation, onSelectLocation } = this.props;
 
     return (
       // Important! Always set the container height explicitly
@@ -48,7 +48,7 @@ class Gmap extends Component {
             key={location.name}
             lat={location.coords.lat}
             lng={location.coords.lng}
-
+            onSelectLocation={onSelectLocation}
           />
           ))}
             
