@@ -28,7 +28,7 @@ class Gmap extends Component {
 
   render() {
 
-    const { filteredLocation, onSelectLocation } = this.props;
+    const { filteredLocation, onSelectLocation, onUnSelectLocation } = this.props;
 
     return (
       // Important! Always set the container height explicitly
@@ -42,6 +42,7 @@ class Gmap extends Component {
             key: 'AIzaSyDyA_DwacE3TR1fCdwU1fk-LEem_JSzA2M'}}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          onClick={e => onUnSelectLocation(e.target)}
         >
 
           {filteredLocation.map((location) => (<Marker
