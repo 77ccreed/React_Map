@@ -1,11 +1,12 @@
 import React, {
   Component
 } from 'react';
+import PropTypes from "prop-types";
+import "./../css/App.css";
 import Gmap from './Gmap';
 import InputList from './InputList';
-import './../css/App.css';
+import InfoModal from "./InfoModal";
 import { locations } from '../data/locations';
-import InfoModal from './InfoModal';
 
 export default class App extends Component {
   constructor(props) {
@@ -66,3 +67,13 @@ export default class App extends Component {
     )
   }
 }
+
+App.propTypes = {
+  locations: PropTypes.arrayOf(PropTypes.string),
+  filteredLocation: PropTypes.arrayOf(PropTypes.string),
+  activeLocation: PropTypes.objectOf(PropTypes.string),
+  selected: PropTypes.bool,
+  locationsList: PropTypes.arrayOf(PropTypes.string),
+  onFilterLocation: PropTypes.func,
+  onSelectLocation: PropTypes.func
+};

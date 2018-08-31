@@ -79,7 +79,10 @@ class InfoModal extends React.Component {
 
 export default InfoModal;
 
-Modal.propTypes = {
+InfoModal.propTypes = {
+  venues: PropTypes.array,
+  getVenues: PropTypes.func,
+  axios: PropTypes.func,
   // boolean to control the state of the popover
   isOpen: PropTypes.bool,
   autoFocus: PropTypes.bool,

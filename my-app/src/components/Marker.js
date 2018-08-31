@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import image from "./../data/marker.svg";
-
+import PropTypes from "prop-types";
 
 
 class Marker extends Component {
@@ -26,3 +26,12 @@ class Marker extends Component {
 }
 
 export default Marker;
+
+Marker.propTypes = {
+          id:PropTypes.string,
+          tabIndex: PropTypes.string,
+          className : PropTypes.string,
+          alt: PropTypes.string,
+          onClick: PropTypes.func,
+          onKeyPress: PropTypes.func
+};

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import PropTypes from "prop-types";
 import Marker from './Marker';
 
 
@@ -59,3 +60,18 @@ class Gmap extends Component {
 }
 
 export default Gmap;
+
+Gmap.propTypes = {
+  gm_authFailure: PropTypes.func,
+  id: PropTypes.string,
+  role: PropTypes.string,
+  tabIndex: PropTypes.string,
+  bootstrapURLKeys: PropTypes.object,
+  defaultCenter: PropTypes.object,
+  defaultZoom: PropTypes.number,
+  filteredLocation: PropTypes.array,
+  key: PropTypes.string,
+  lat: PropTypes.number,
+  lng: PropTypes.number,
+  onSelectLocation: PropTypes.func
+};
