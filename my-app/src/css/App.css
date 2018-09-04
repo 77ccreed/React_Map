@@ -8,3 +8,29 @@
   height: 94vh;
   width: 100%;
 }
+
+.marker {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.marker:hover {
+  transform: scale(1.5);
+}
+
+@keyframes activemarker {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.7);
+    -webkit-transform: scale(1.7);
+  }
+}
+
+.selectedLocation {
+  animation: activemarker 1s ease-in-out infinite alternate;
+  -webkit-animation: activemarker 1s ease-in-out infinite alternate;
+}

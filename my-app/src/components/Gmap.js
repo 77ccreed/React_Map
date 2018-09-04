@@ -45,11 +45,11 @@ class Gmap extends Component {
           onClick={e => onUnSelectLocation(e.target)}
         >
 
-          {filteredLocation.map((location) => (<Marker
-            filteredLocation={location}
-            key={location.name}
-            lat={location.coords.lat}
-            lng={location.coords.lng}
+          {filteredLocation.map((venue) => (<Marker
+            filteredLocation={venue}
+            key={venue.name}
+            lat={venue.coords.lat}
+            lng={venue.coords.lng}
             onSelectLocation={onSelectLocation}
           />
           ))}

@@ -10,7 +10,9 @@ class InfoModal extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      venues: []
+      venues: [],
+      modalHeader:"header",
+      modalContent:"content",
     };
 
     this.toggle = this.toggle.bind(this);
@@ -51,20 +53,27 @@ class InfoModal extends React.Component {
         this.setState({
           venues: response.data.response.groups[0].items
         });
+        //console.log(this.state.venues[0].venue.name);
       })
       .catch(error => {
         console.log("error" + error);
       });
   };
 
+  compare(venue){
+  
+  
+  
+  }
+
 
   render() {
     return (
       <div>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{this.state.modalHeader}</ModalHeader>
           <ModalBody>
-            Lorem ipsum dolor sit amet,
+            {this.state.modalContent}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Look more</Button>{' '}

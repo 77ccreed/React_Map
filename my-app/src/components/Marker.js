@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 class Marker extends Component {
   render() {
     const { filteredLocation, onSelectLocation } = this.props;
-
     return (
       <div>
        
@@ -19,7 +18,6 @@ class Marker extends Component {
           onClick={() => onSelectLocation(filteredLocation)}
           onKeyPress={() => onSelectLocation(filteredLocation)}
         />
-  
       </div>
     );
   }
