@@ -31,7 +31,7 @@ class Map extends Component {
     });
 
     // Loop over venues array and create markers
-    this.props.filteredLocation.forEach(location => {
+    /*this.state.venues.forEach(location => {
       // https://developers.google.com/maps/documentation/javascript/markers#add
       // Create a marker
       let marker = new window.google.maps.Marker({
@@ -44,7 +44,7 @@ class Map extends Component {
       marker.setMap(map)
 
 
-    });
+    });*/
   };
 
   //https://developers.google.com/maps/documentation/javascript/events#auth-errors

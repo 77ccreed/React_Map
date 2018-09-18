@@ -10,6 +10,7 @@ class Marker extends Component {
       <div>
        
         <img
+          title={filteredLocation.name}
           id={filteredLocation.name}
           tabIndex="0"
           className="marker"

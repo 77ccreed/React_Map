@@ -12,7 +12,7 @@ class InfoModal extends React.Component {
       modal: false,
       venues: [],
       modalHeader:"header",
-      modalContent:"content",
+      modalContent:"content"
     };
 
     this.toggle = this.toggle.bind(this);
@@ -51,29 +51,49 @@ class InfoModal extends React.Component {
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
-          venues: response.data.response.groups[0].items
+          venues: response.data.response.groups[0].items        
         });
-        //console.log(this.state.venues[0].venue.name);
+        console.log(this.state.venues[0].reasons.items[0].summary);
+        console.log(this.state.venues[0].venue.name)
+        console.log(this.state.venues)
       })
       .catch(error => {
         console.log("error" + error);
       });
   };
 
-  compare(venue){
-  
-  
-  
+ /* modalContent(venues){
+    console.log(this.state.venues[0].venue.name);
+    this.setState({
+      modalContent:"ggvhh"
+    })
+  }*/
+
+  /**
+   * @description compare activeLocation and venues and filter out right venue
+   * @name activeVenue
+   * @param this.props.activeLocation
+   * @returns venue
+   */
+  activeVenue(venue){
+    let {activeLocation}= this.props
+    if(venue){
+   console.log("selected")
+    }else{
+console.log("not")
+    }
   }
 
-
   render() {
+
+    const { activeLocation } = this.props;
+  
     return (
       <div>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>{this.state.modalHeader}</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{activeLocation.name}</ModalHeader>
           <ModalBody>
-            {this.state.modalContent}
+            {activeLocation.name}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Look more</Button>{' '}

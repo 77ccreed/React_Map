@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-eslint": "^9.0.0",
     "bootstrap": "^4.1.1",
     "escape-string-regexp": "^1.0.5",
     "google-map-react": "^1.0.6",

@@ -21,7 +21,7 @@ export default class InputList extends React.Component {
     this.state = {
       dropdownOpen: true,
       input:"",
-      filteredVenue:this.props.locationsList
+      filteredVenue: []
     };
   }
 
@@ -54,7 +54,7 @@ export default class InputList extends React.Component {
 
       // Add location to the array if its title match the input
       SearchVenue = this.props.locationsList.filter(venue =>
-        match.test(venue.name)
+        match.test(venue.venue.name)
       );
       this.setState({
         input: input,
@@ -93,7 +93,7 @@ export default class InputList extends React.Component {
                 onClick={() => this.props.onSelectLocation(venue)}
                 onKeyPress={() => this.props.onSelectLocation(venue)}
               >
-                {venue.name}
+                {venue.venue.name}
               </DropdownItem>
             ))}
           </DropdownMenu>
