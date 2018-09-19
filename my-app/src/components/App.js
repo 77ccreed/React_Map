@@ -1,13 +1,3 @@
-/**
- * ToDo:
- * *Click in a List activate a Marker
- * Modal content
- * Click in a Marker or a List activate a Modal
- * *Only one active Marker
- * Add removeClassFromMarker
- */
-
-
 import React, {
   Component
 } from 'react';
@@ -16,7 +6,6 @@ import axios from 'axios';
 import "./../css/App.css";
 import Map from './Map';
 import InputList from './InputList';
-//import { locations } from '../data/locations';
 
 export default class App extends Component {
   constructor(props) {
@@ -25,7 +14,6 @@ export default class App extends Component {
     this.filterLocation = this.filterLocation.bind(this);
     this.selectLocation = this.selectLocation.bind(this);
     this.unSelectLocation = this.unSelectLocation.bind(this);
-    //this.addClassFromMarker = this.addClassFromMarker.bind(this);
 
     this.state = {
       activeLocation: {}, 
@@ -33,11 +21,11 @@ export default class App extends Component {
       venues: [], 
       myLatLng: { lat: 57.78145679999999, lng: 26.0550403 },
       map: "",
-      markers: [] 
+      markers: []
     };
   }
 
-  // Initialize Google Map when DOM was loaded and call script loading function and
+  // Get venues, initialize Google Map when DOM was loaded, call script loading function and
   // handle Map errors.
   componentDidMount() {
     this.getVenues();
@@ -75,14 +63,16 @@ export default class App extends Component {
         },
           () => this.setMarkers());
         //console.log(this.state.venues[0].reasons.items[0].summary);
-       // console.log(this.state.venues[0].venue.name)
-        //console.log(this.state.venues)
       })
       .catch(error => {
         console.log("error" + error);
       });
   };
 
+  /**
+   * Initialize Google Map
+   *https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
+   */
   initMap = () => {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: this.state.myLatLng,
@@ -91,26 +81,62 @@ export default class App extends Component {
     this.setState({ map }, () => this.setMarkers())
   }
 
+  /**
+   * Create a marker
+   */
   setMarkers = () => {
     const { venues, map } = this.state
     const markers = []
 
     if (map && venues.length > 0 && markers.length === 0) {
-      venues.map((venue, index) => {
+      this.state.venues.map((venue, index) => {
 
         const marker = new window.google.maps.Marker({
           map: map,
           position: venue.venue.location,
           title: venue.venue.name,
-          id: index
+          id: index,
+          animation: window.google.maps.Animation.DROP
         })  
-      })
-   
+        // Animate a marker
+        marker.addListener('click', function () {
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null)
+          } else {
+            marker.setAnimation(window.google.maps.Animation.BOUNCE)
+            setTimeout(function () {
+              marker.setAnimation(null)
+            }, 100)
+          }
+        })
+        //marker displays infowindow when clicked
+        marker.addListener('click', function () {
+          fillInfoWindow(this, mapInfoWindow)
+        })
+        //push markers to state
+        markers.push(marker)       
+      })  
+      //create infowindow
+      const mapInfoWindow = new window.google.maps.InfoWindow()
+
+      //populate infowindow
+      function fillInfoWindow(marker, infowindow) {
+        const infoWindowContent = `<h4>${marker.title}</h4>`
+
+        //check whether infowindow is already open
+        if (infowindow.marker !== marker) {
+          infowindow.marker = marker
+          infowindow.setContent(infoWindowContent)
+          infowindow.open(map, marker)
+          //clear marker prop when infowindow is closed
+          infowindow.addListener('closeclick', function () {
+            infowindow.setMarker = null
+          })
+        }
+      }
       this.setState({ markers })
     }
   }
-
-
 
   /**
    * @description filteredLocation default state is locations when it go to Gmap. When input
@@ -142,7 +168,6 @@ export default class App extends Component {
    * @description When click happen in a map or a in inputfield unselect selected marker or <DropdownItem>
    * @returns activeLocation:{}, selected:false
    */
-  
   unSelectLocation() {
     this.setState({
       activeLocation: {},
@@ -150,41 +175,25 @@ export default class App extends Component {
     });
   }
 
-  /**
-* @description add "selectedLocation" className from marker when it is activeLocation object
-* and remove it
-* @name addClassFromMarker
-* @param venue
-* @returns className "selectedLocation" to marker and remove it
-*/
-/*
-  addClassFromMarker(venue) {     
-      document.getElementById(venue.venue.name).classList.add("selectedLocation");
-     setTimeout(function () { document.getElementById(venue.name).classList.remove("selectedLocation"); }, 9000);
-  }
-*/
 
   render() {
+    const { venues } = this.state
     return <main>
       <InputList 
-      locationsList={this.state.venues} 
+      locationsList={venues} 
       onFilterLocation={this.filterLocation} 
       onSelectLocation={this.selectLocation} 
       onUnSelectLocation={this.unSelectLocation} 
       />
-      <Map 
-      //filteredLocation={this.state.filteredLocation} 
-      //onSelectLocation={this.selectLocation} 
-      //onUnSelectLocation={this.unSelectLocation} 
- 
-      />
+      <Map />
     </main>;
   }
 }
 
-// https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
-// Script loading function which is called after the React app has been initialized
-// and rendered into the DOM.
+/**
+ *https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
+ * Script loading function which is called after the React app has been initialized and rendered into the DOM.
+ */
 function loadMapJS(src) {
   let ref = window.document.getElementsByTagName("script")[0];
   let script = window.document.createElement("script");

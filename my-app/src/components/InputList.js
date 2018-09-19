@@ -25,6 +25,7 @@ export default class InputList extends React.Component {
     };
   }
 
+
   toggleDropDown() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
