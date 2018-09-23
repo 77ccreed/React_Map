@@ -8,23 +8,17 @@ import {
   DropdownItem
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import escapeRegExp from "escape-string-regexp";
 
 export default class InputList extends React.Component {
   constructor(props) {
     super(props);
 
     this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.updateInput= this.updateInput.bind(this);
-    this.handleInput=this.handleInput.bind(this);
 
     this.state = {
-      dropdownOpen: true,
-      input:"",
-      filteredVenue: []
+     dropdownOpen: true
     };
   }
-
 
   toggleDropDown() {
     this.setState({
@@ -32,67 +26,36 @@ export default class InputList extends React.Component {
     });
   }
 
-  updateInput(e){
-    const value= e.target.value
-    this.setState({
-      dropdownOpen: true,
-      input: value
+/**
+ * @description If marker and list item have same name show marker when click 
+ */
+  selectLocation(venue) {
+    const { markers } = this.props
+    markers.map(function (marker) {
+      marker.title === venue ? window.google.maps.event.trigger(marker, 'click') : ''
     })
-    this.handleInput(value);
-  }
-
-  /**
-   * @description Input filtering, send returned value 
-   * to App.js and map() over a </DropdownItem>
-   * @returns filteredVenue
-   */
-  handleInput(input){
-
-    let SearchVenue;
-    if (input) {
-
-      const match = new RegExp(escapeRegExp(this.state.input), 'i');
-
-      // Add location to the array if its title match the input
-      SearchVenue = this.props.locationsList.filter(venue =>
-        match.test(venue.venue.name)
-      );
-      this.setState({
-        input: input,
-        filteredVenue: SearchVenue
-      });
-    }
-    else {
-      SearchVenue = this.props.locationsList;
-      this.setState({
-        input: "",
-        filteredVenue: SearchVenue
-      });
-    }
-    this.props.onFilterLocation(SearchVenue);
-    this.props.onUnSelectLocation();
   }
 
   render() {
     return (
       <InputGroup>
         <Input
-          placeholder="Add location name"
+          placeholder="Add location name here"
           id="input"
-          value={this.state.input}
-          onChange={this.updateInput}
+          value={this.props.input}
+          onChange={(e) => this.props.filterInput(e.target.value)}
         />
         <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
           <DropdownToggle caret>
             Choose a Dinery
             </DropdownToggle>
           <DropdownMenu>
-            {this.state.filteredVenue.map((venue, id) => (
+            {this.props.searchedVenues.map((venue, id) => (
               <DropdownItem
                 key={id}
                 className="list-items"
-                onClick={() => this.props.onSelectLocation(venue)}
-                onKeyPress={() => this.props.onSelectLocation(venue)}
+                onClick={() => this.selectLocation(venue.venue.name)}
+                onKeyPress={() => this.selectLocation(venue.venue.name)}
               >
                 {venue.venue.name}
               </DropdownItem>
