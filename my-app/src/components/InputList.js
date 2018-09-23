@@ -27,12 +27,16 @@ export default class InputList extends React.Component {
   }
 
 /**
- * @description If marker and list item have same name show marker when click 
+ * @description If marker and list item have same name show marker when click happen
+ * @name selectLocation
+ * @param venue
+ * @returns marker
  */
-  selectLocation(venue) {
-    const { markers } = this.props
-    markers.map(function (marker) {
-      marker.title === venue ? window.google.maps.event.trigger(marker, 'click') : ''
+  selectLocation(venue) { 
+    this.props.markers.map(function (marker) {
+      if (marker.title === venue){
+        window.google.maps.event.trigger(marker, 'click') 
+      }
     })
   }
 
