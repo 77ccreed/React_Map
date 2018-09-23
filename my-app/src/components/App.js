@@ -7,6 +7,11 @@ import escapeRegExp from "escape-string-regexp";
 import "./../css/App.css";
 import Map from './Map';
 import InputList from './InputList';
+import {
+  Navbar,
+  NavItem,
+  NavbarBrand
+} from 'reactstrap';
 
 export default class App extends Component {
   constructor(props) {
@@ -25,8 +30,10 @@ export default class App extends Component {
     };
   }
 
-  // Get venues, initialize Google Map when DOM was loaded, call script loading function and
-  // handle Map errors.
+  /**
+   * Get venues, initialize Google Map when DOM was loaded, call script loading function and
+     handle Map errors. 
+   */
   componentDidMount() {
     this.getVenues();
     window.initMap = this.initMap;
@@ -146,7 +153,9 @@ export default class App extends Component {
   }
 
   
-  // Filters through points of interest & updates UI based on result
+  /**
+   * Get user input and filter Markers and list items
+   */
   filterInput = (input) => {
     
     this.setState({ input })
@@ -183,6 +192,9 @@ export default class App extends Component {
       filterInput={ this.filterInput }
       />
       <Map />
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="https://foursquare.com/explore?cat=food&mode=url&near=Valga%2C%20Estonia&nearGeoId=72057594038515812">This app use Foursquare data</NavbarBrand>
+      </Navbar>
     </main>;
   }
 }

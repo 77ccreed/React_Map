@@ -5,6 +5,10 @@
 }
 
 #map {
-  height: 94vh;
+  height: 86vh;
   width: 100%;
+}
+
+#nav {
+  height: 8vh;
 }
