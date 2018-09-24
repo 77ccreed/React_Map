@@ -9,7 +9,6 @@ import Map from './Map';
 import InputList from './InputList';
 import {
   Navbar,
-  NavItem,
   NavbarBrand
 } from 'reactstrap';
 
@@ -184,6 +183,15 @@ export default class App extends Component {
       })
     }
   }
+
+ /**
+ * @description Handle Google Maps error
+ *https://developers.google.com/maps/documentation/javascript/events#auth-errors
+ */
+  gm_authFailure() {
+    window.alert("Sorry, Google Maps not working!");
+  }
+
 
   render() {
     return <main>
