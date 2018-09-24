@@ -28,7 +28,6 @@ I follow 300+ Udacity students in GitHub. It's helpful when You see how others d
 * reactstrap https://reactstrap.github.io/
 * escape-string-regexp https://www.npmjs.com/package/escape-string-regexp
 * prop-types https://www.npmjs.com/package/prop-types
-* google-map-react https://github.com/google-map-react/google-map-react#readme
 
 ### API
 * Google Maps API https://cloud.google.com/maps-platform/
