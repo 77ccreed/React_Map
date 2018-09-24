@@ -5,10 +5,14 @@
 }
 
 #map {
-  height: 86vh;
+  height: 88vh;
   width: 100%;
 }
 
-#nav {
-  height: 8vh;
+Label {
+  margin: 5px;
+}
+
+Footer {
+  text-align: center;
 }

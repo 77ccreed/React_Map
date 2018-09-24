@@ -5,7 +5,8 @@ import {
   Input,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Label
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
@@ -43,8 +44,10 @@ export default class InputList extends React.Component {
   render() {
     return ( <
       InputGroup >
+      <Label for="input">Search a dinery:</Label>
       <
-      Input placeholder = "Add location name here"
+      Input 
+      placeholder = "Add location name here"
       id = "input"
       value = {
         this.props.input

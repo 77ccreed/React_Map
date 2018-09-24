@@ -7,10 +7,7 @@ import escapeRegExp from "escape-string-regexp";
 import "./../css/App.css";
 import Map from './Map';
 import InputList from './InputList';
-import {
-  Navbar,
-  NavbarBrand
-} from 'reactstrap';
+import Footer from './Footer';
 
 export default class App extends Component {
   constructor(props) {
@@ -202,9 +199,7 @@ export default class App extends Component {
         filterInput={this.filterInput}
       />
       <Map />
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href="https://foursquare.com/explore?cat=food&mode=url&near=Valga%2C%20Estonia&nearGeoId=72057594038515812">This app use Foursquare data</NavbarBrand>
-      </Navbar>
+      <Footer />
     </main>;
   }
 }
@@ -231,18 +226,3 @@ App.propTypes = {
   markers: PropTypes.arrayOf(PropTypes.string),
   filterInput: PropTypes.func
 };
-
-Navbar.propTypes = {
-  light: PropTypes.bool,
-  fixed: PropTypes.string,
-  color: PropTypes.string,
-  role: PropTypes.string,
-  expand: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-  // pass in custom element to use
-}
-
-NavbarBrand.propTypes = {
-  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-  // pass in custom element to use
-}
