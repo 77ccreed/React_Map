@@ -3,8 +3,6 @@ import "./../css/App.css";
 
 class Footer extends Component {
 
-
-
   render() {
 
     return (

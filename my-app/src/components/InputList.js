@@ -72,6 +72,7 @@ export default class InputList extends React.Component {
           DropdownItem key = {
             id
           }
+          role="menuitem"
           className = "list-items"
           onClick = {
             () => this.selectLocation(venue.venue.name)
