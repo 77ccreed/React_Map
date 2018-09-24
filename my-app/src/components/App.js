@@ -69,6 +69,7 @@ export default class App extends Component {
       })
       .catch(error => {
         console.log("error" + error);
+        window.alert("error" + error);
       });
   };
 
