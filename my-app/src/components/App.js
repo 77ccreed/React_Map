@@ -46,9 +46,6 @@ export default class App extends Component {
   /**
    *https://www.youtube.com/watch?v=dAhMIF0fNpo&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=3
    * @description Get Foursquare data
-   * @name getVenues
-   * @param
-   * @returns
    */
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?"
@@ -79,8 +76,6 @@ export default class App extends Component {
   /**
    * @description Initialize Google Map
    *https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
-   * @name initMap
-   * @param 
    * @returns map
    */
   initMap = () => {
@@ -92,10 +87,7 @@ export default class App extends Component {
   }
 
   /**
-   * @description Create a marker
-   * @name setMarkers
-   * @param 
-   * @returns markers
+   * @description Create a marker and infoWindow and display and animate it
    */
   setMarkers = () => {
     const { venues, map } = this.state
@@ -159,7 +151,7 @@ export default class App extends Component {
       this.setState({ markers })
     }
   }
-
+  
   
   /**
    * @description Get user input and filter Markers and list items
@@ -167,25 +159,23 @@ export default class App extends Component {
    * @param input
    * @returns searchedVenues, searchedMarkers
    */
-  filterInput = (input) => {
-    
-    this.setState({ input })
-    const { markers, venues} = this.state
+  filterInput(input){
+    const { markers, venues } = this.state
 
-    if (input) {
+    if(input){
       // Case-insensitive matching 
-      const match = new RegExp(escapeRegExp(input), 'i')
-      // Markers is not visible at start when loop over it
+      const match = new RegExp(escapeRegExp(input), 'i');
+      // Markers is not visible 
       markers.map((marker) => {
         marker.setVisible(false)
       })
-      // Set matching markers to visible
+      // Filter list items and markers when they match and set matched markers to visible
       this.setState({
         searchedVenues: venues.filter((venue) => match.test(venue.venue.name)),
         searchedMarkers: markers.filter((marker) => match.test(marker.title))
           .map((marker) => marker.setVisible(true))
       })
-    } else {
+    }else{
       // All list items and markers are visible by default if input is empty
       markers.map((marker) => marker.setVisible(true))
       this.setState({
@@ -200,7 +190,7 @@ export default class App extends Component {
       <InputList 
       searchedVenues={ this.state.searchedVenues }
       markers={ this.state.markers }
-      filterInput={ this.filterInput }
+      filterInput={ this.filterInput } 
       />
       <Map />
       <Navbar color="light" light expand="md">
