@@ -4,8 +4,10 @@ import React, {
 
 class Map extends Component {
   render() {
-    return (
-      <div id="map" role="application" tabIndex="-1"></div>
+    return ( <
+      div id = "map"
+      role = "application"
+      tabIndex = "-1" > < /div>
     )
   }
 }

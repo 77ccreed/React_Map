@@ -20,12 +20,12 @@ export default class App extends Component {
     this.filterInput = this.filterInput.bind(this);
 
     this.state = {
-      venues: [], 
+      venues: [],
       myLatLng: { lat: 57.78145679999999, lng: 26.0550403 },
       myZoom: 13,
       map: "",
       markers: [],
-      input:"",
+      input: "",
       searchedVenues: []
     };
   }
@@ -104,7 +104,7 @@ export default class App extends Component {
           title: venue.venue.name,
           id: index,
           animation: window.google.maps.Animation.DROP
-        })  
+        })
 
         // Animate a marker
         marker.addListener('click', function () {
@@ -121,7 +121,7 @@ export default class App extends Component {
         marker.addListener('click', function () {
           addInfoWindow(this, newInfoWindow)
         })
-        markers.push(marker) 
+        markers.push(marker)
 
         // Extend bounds based on location
         let locations = new window.google.maps.LatLng(
@@ -129,7 +129,7 @@ export default class App extends Component {
           marker.position.lng()
         )
         bounds.extend(locations)
-      })  
+      })
       // Create infowindow
       const newInfoWindow = new window.google.maps.InfoWindow()
 
@@ -151,18 +151,18 @@ export default class App extends Component {
       this.setState({ markers })
     }
   }
-  
-  
+
+
   /**
    * @description Get user input and filter Markers and list items
    * @name filterInput
    * @param input
    * @returns searchedVenues, searchedMarkers
    */
-  filterInput(input){
+  filterInput(input) {
     const { markers, venues } = this.state
 
-    if(input){
+    if (input) {
       // Case-insensitive matching 
       const match = new RegExp(escapeRegExp(input), 'i');
       // Markers is not visible 
@@ -175,7 +175,7 @@ export default class App extends Component {
         searchedMarkers: markers.filter((marker) => match.test(marker.title))
           .map((marker) => marker.setVisible(true))
       })
-    }else{
+    } else {
       // All list items and markers are visible by default if input is empty
       markers.map((marker) => marker.setVisible(true))
       this.setState({
@@ -187,10 +187,10 @@ export default class App extends Component {
 
   render() {
     return <main>
-      <InputList 
-      searchedVenues={ this.state.searchedVenues }
-      markers={ this.state.markers }
-      filterInput={ this.filterInput } 
+      <InputList
+        searchedVenues={this.state.searchedVenues}
+        markers={this.state.markers}
+        filterInput={this.filterInput}
       />
       <Map />
       <Navbar color="light" light expand="md">

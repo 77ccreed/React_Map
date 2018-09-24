@@ -16,7 +16,7 @@ export default class InputList extends React.Component {
     this.toggleDropDown = this.toggleDropDown.bind(this);
 
     this.state = {
-     dropdownOpen: true
+      dropdownOpen: true
     };
   }
 
@@ -26,47 +26,65 @@ export default class InputList extends React.Component {
     });
   }
 
-/**
- * @description If marker and list item have same name show marker when click happen
- * @name selectLocation
- * @param venue
- * @returns marker
- */
-  selectLocation(venue) { 
+  /**
+   * @description If marker and list item have same name show marker when click happen
+   * @name selectLocation
+   * @param venue
+   * @returns marker
+   */
+  selectLocation(venue) {
     this.props.markers.map(function (marker) {
-      if (marker.title === venue){
-        window.google.maps.event.trigger(marker, 'click') 
+      if (marker.title === venue) {
+        window.google.maps.event.trigger(marker, 'click')
       }
     })
   }
 
   render() {
-    return (
-      <InputGroup>
-        <Input
-          placeholder="Add location name here"
-          id="input"
-          value={this.props.input}
-          onChange={(e) => this.props.filterInput(e.target.value)}
-        />
-        <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-          <DropdownToggle caret>
-            Choose a Dinery
-            </DropdownToggle>
-          <DropdownMenu>
-            {this.props.searchedVenues.map((venue, id) => (
-              <DropdownItem
-                key={id}
-                className="list-items"
-                onClick={() => this.selectLocation(venue.venue.name)}
-                onKeyPress={() => this.selectLocation(venue.venue.name)}
-              >
-                {venue.venue.name}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </InputGroupButtonDropdown>
-      </InputGroup>
+    return ( <
+      InputGroup >
+      <
+      Input placeholder = "Add location name here"
+      id = "input"
+      value = {
+        this.props.input
+      }
+      onChange = {
+        (e) => this.props.filterInput(e.target.value)
+      }
+      /> <
+      InputGroupButtonDropdown addonType = "append"
+      isOpen = {
+        this.state.dropdownOpen
+      }
+      toggle = {
+        this.toggleDropDown
+      } >
+      <
+      DropdownToggle caret >
+      Choose a Dinery <
+      /DropdownToggle> <
+      DropdownMenu > {
+        this.props.searchedVenues.map((venue, id) => ( <
+          DropdownItem key = {
+            id
+          }
+          className = "list-items"
+          onClick = {
+            () => this.selectLocation(venue.venue.name)
+          }
+          onKeyPress = {
+            () => this.selectLocation(venue.venue.name)
+          } >
+          {
+            venue.venue.name
+          } <
+          /DropdownItem>
+        ))
+      } <
+      /DropdownMenu> <
+      /InputGroupButtonDropdown> <
+      /InputGroup>
     );
   }
 }
