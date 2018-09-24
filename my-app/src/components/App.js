@@ -44,9 +44,11 @@ export default class App extends Component {
   }
 
   /**
-   *https://foursquare.com/explore?mode=url&near=Valga%2C%20Estonia&nearGeoId=72057594038515812&q=Food}
    *https://www.youtube.com/watch?v=dAhMIF0fNpo&list=PLgOB68PvvmWCGNn8UMTpcfQEiITzxEEA1&index=3
-   * Get Foursquare data
+   * @description Get Foursquare data
+   * @name getVenues
+   * @param
+   * @returns
    */
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?"
@@ -75,8 +77,11 @@ export default class App extends Component {
   };
 
   /**
-   * Initialize Google Map
+   * @description Initialize Google Map
    *https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions
+   * @name initMap
+   * @param 
+   * @returns map
    */
   initMap = () => {
     let map = new window.google.maps.Map(document.getElementById('map'), {
@@ -87,7 +92,10 @@ export default class App extends Component {
   }
 
   /**
-   * Create a marker
+   * @description Create a marker
+   * @name setMarkers
+   * @param 
+   * @returns markers
    */
   setMarkers = () => {
     const { venues, map } = this.state
@@ -154,7 +162,10 @@ export default class App extends Component {
 
   
   /**
-   * Get user input and filter Markers and list items
+   * @description Get user input and filter Markers and list items
+   * @name filterInput
+   * @param input
+   * @returns searchedVenues, searchedMarkers
    */
   filterInput = (input) => {
     
@@ -172,7 +183,7 @@ export default class App extends Component {
       this.setState({
         searchedVenues: venues.filter((venue) => match.test(venue.venue.name)),
         searchedMarkers: markers.filter((marker) => match.test(marker.title))
-          .forEach((marker) => marker.setVisible(true))
+          .map((marker) => marker.setVisible(true))
       })
     } else {
       // All list items and markers are visible by default if input is empty
