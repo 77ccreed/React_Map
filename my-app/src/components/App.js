@@ -169,7 +169,7 @@ export default class App extends Component {
       markers.map((marker) => {
         marker.setVisible(false)
       })
-      // Filter list items and markers when they match and set matched markers to visible
+      // Filter out list items and markers when they match and set matched markers to visible
       this.setState({
         searchedVenues: venues.filter((venue) => match.test(venue.venue.name)),
         searchedMarkers: markers.filter((marker) => match.test(marker.title))
@@ -217,11 +217,23 @@ function loadMapJS(src) {
 }
 
 App.propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.string),
-  filteredLocation: PropTypes.arrayOf(PropTypes.string),
-  activeLocation: PropTypes.objectOf(PropTypes.string),
-  selected: PropTypes.bool,
-  locationsList: PropTypes.arrayOf(PropTypes.string),
-  onFilterLocation: PropTypes.func,
-  onSelectLocation: PropTypes.func
+  venues: PropTypes.arrayOf(PropTypes.string),
+  searchedVenues: PropTypes.arrayOf(PropTypes.string),
+  markers: PropTypes.arrayOf(PropTypes.string),
+  filterInput: PropTypes.func
 };
+
+Navbar.propTypes = {
+  light: PropTypes.bool,
+  fixed: PropTypes.string,
+  color: PropTypes.string,
+  role: PropTypes.string,
+  expand: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+  // pass in custom element to use
+}
+
+NavbarBrand.propTypes = {
+  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+  // pass in custom element to use
+}
