@@ -32,3 +32,48 @@ I follow 300+ Udacity students in GitHub. It's helpful when You see how others d
 ### API
 * Google Maps API https://cloud.google.com/maps-platform/
 * Foursquare Place API https://developer.foursquare.com/places-api
+
+
+
+* Alates 2015. a. töötasin kolme aasta jooksul manöövrijuhina EVR Cargos.
+* Töö sisu. Kollektiiv. Töötamine vene keeles. 
+* 2017 novembrist õppinud Udacity-s Front End Web-i.
+* Kursuse esimesse ja teise vooru pääsemine. Lõpetamine
+* Kursuse sisu.
+* Mis edasi
+
+
+
+Alates 2014. aasta viimastest päevadest töötasin kolme aasta jooksul Valga jaamas EVR Cargo manöövrijuhina.
+Põhiliseks töö sisuks oli jaama saabuvate rongide ümberkomplekteerimine, jaamas asuvate tupikute teenindamine,
+manöövritööd Lõuna-Eestis ja vedurijuhiabina sõidud üle Eesti.
+
+2017. aasta novembris olin üks 20 000 kes alustas õppimist Udacity ja Googli korraldatud Frond End kursuse esimeses osas.
+Õpetati HTML-i, CSS-i ja JavaScripti põhialuseid ja pidi kirjutama paar väiksemat projekti. 
+Peale kolmekuulist baaskursust olin üks 2000 kes pääses kursuse teise vooru. Selle eelduseks oli kursuse
+materjali omandamine, projektide edukas sooritamine ja kursusekaaslaste aitamine foorumis ja Slackis.
+
+Kursuse teises osas oli põhirõhk juba JavaScriptil ja tuli teha kaheksa projekti. 
+Mõned märksõnad mida õpetati: responsive desingn, optimizations, writing READMEs, data types and variables,
+shell, version control, DOM, Browser events, performance, accessibility, semantics,  ARIA, objects, functions,
+classes, web tooling and automations, testing, promises, AJAX, frameworks, offline first, service worker,
+React, API.
+
+Sooviksin jätkata õppimist ja töötamist Front End arendajana. Samuti soovin õppida Back End-i.
+
+
+
+
+
+CSS Preprocessors :SASS
+Package Managers: NPM, Yarn
+
+CSS Archidecture :BEM
+
+Build Tools: NPM Scripts, ESLint, Webpack
+
+React: Redux,Mobx
+
+React server side rendering
+
+Canvas, html-5 API, SVG,soursemaps,functional programming, TC39, Next.js, Testing Your apps
